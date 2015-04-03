@@ -10,7 +10,15 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 
 
 # Quick-start development settings - unsuitable for production
@@ -81,8 +89,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
+STATIC_ROOT = '/var/www/static/'
+STATIC_URL = os.path.join(BASE_DIR, '/static/')
+STATICFILES_DIRS = (
+    STATIC_PATH,
 )
+TEMPLATE_DIRS = (
+    TEMPLATE_PATH,
+)
+
+MEDIA_ROOT = '/var/www/media/'
+MEDIA_URL = os.path.join(BASE_DIR, '/media/')
