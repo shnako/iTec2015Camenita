@@ -39,7 +39,8 @@ button:hover {
 
 .menu-item {
     padding: 10px;
-    font-size: 24px;
+    font-size: 16px;
+    text-transform: uppercase;
 }
 
 .menu-item span {
