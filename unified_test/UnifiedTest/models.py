@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from model_utils import Choices
+
+HTTP_METHODS = Choices('GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'HEAD')
 
 
 class Page(models.Model):
@@ -11,13 +14,16 @@ class Page(models.Model):
     response = models.TextField()
     dynamic_code = models.TextField(blank=True)
 
+    def __unicode__(self):
+        return '{url}'.format(url=self.url)
+
 
 class PageAccessLog(models.Model):
-    HTTP_METHODS = ['get', 'put', 'post', 'delete', 'options', 'head']
-    HTTP_METHODS_CHOICES = ((method, method.upper()) for method in HTTP_METHODS)
-
     page = models.ForeignKey(Page)
     timestamp = models.DateTimeField()
-    request_type = models.CharField(max_length=20, choices=HTTP_METHODS_CHOICES)
+    request_type = models.CharField(max_length=20, choices=HTTP_METHODS)
     request_body = models.TextField()
     response_body = models.TextField()
+
+    def __unicode__(self):
+        return '{page} - {ts}'.format(page=self.page, ts=self.timestamp)

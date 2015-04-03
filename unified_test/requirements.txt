@@ -1,3 +1,4 @@
 Django
 django-annoying
 djangorestframework
+django-model-utils
