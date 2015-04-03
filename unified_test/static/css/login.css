@@ -1,5 +1,4 @@
 #login_signup_container {
-
     /* Layout */
     clear: both;
     padding: 20px;
@@ -7,12 +6,17 @@
     line-height: 1.4;
 
     width: 600px;
+    margin-top: 50px;
 
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: #4d5965;
 }
 
 #login_signup_container a {
     color: white;
+}
+
+#login_signup_container h2 {
+    margin-top: 0;
 }
 
 #signup_wrapper {
@@ -30,7 +34,7 @@
 
 .login-header {
     font-size: 20px;
-    color: #e74c3c;
+    color: #f8862c;
 }
 
 .input-textbox {
@@ -38,12 +42,19 @@
     margin-bottom: 5px;
 }
 
-#login-signup-email-submit {
-    margin-left: 5px;
-}
-
 .login-submit-buttons-container {
     margin-top: 16px;
     float: right;
     font-size: 13px;
+}
+
+.submit-button-auth {
+    width:100%;
+    padding: 5px;
+    background-color: #4d5965;
+    color: white;
+    font-size: 20px;
+    border-width: 1px;
+    border-color: white;
+    border-style: solid;
 }

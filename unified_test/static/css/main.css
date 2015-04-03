@@ -1,0 +1,70 @@
+html, body{
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    /*overflow: hidden;*/
+    min-width: 992px;
+    word-wrap: break-word;
+    color: #4d5965;
+}
+
+a, a:hover, a:active, a:focus {
+    text-decoration: none;
+}
+
+button:hover {
+    color: #f8862c;
+    border-color: #f8862c;
+}
+
+#header-bar {
+    background-color: #4d5965;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+#logo, #menu-bar {
+    margin: 10px;
+}
+
+#menu-bar {
+    float: right;
+}
+
+.menu-item {
+    padding: 10px;
+    font-size: 24px;
+}
+
+.menu-item span {
+    color: white;
+}
+
+.menu-item span:hover {
+    color: #f8862c;
+}
+
+/* =======================
+    Helpers.
+   =======================
+*/
+
+.center-content-v {
+    display: flex;
+    align-items: center;
+}
+
+.center-content-h {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.center-content-hv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

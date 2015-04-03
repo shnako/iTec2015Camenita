@@ -2,6 +2,7 @@ import uuid
 import urlparse
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
+<<<<<<< HEAD
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect

@@ -1,43 +1,35 @@
-<nav class="w-nav">
-	<div class="w-nav-h">
-		<div class="w-nav-control">
-			<i class="fa fa-bars"></i>
-		</div>
-	</div>
-</nav>
-<div class="w-nav-list layout_hor width_auto level_1">
-	<div class="w-nav-list-h">
-		<div id="menu-create" class="menu-item menu-item-type-post_type menu-item-object-us_main_page_section w-nav-item level_1 menu-item-1771">
-			<div class="w-nav-item-h">
-				<a class="w-nav-anchor level_1" href="/create">
-				<span class="w-nav-title">Create Page</span>
-				<span class="w-nav-hint"></span>
-				</a>
-			</div>
-		</div>
-		<div id="menu-pages" class="menu-item menu-item-type-post_type menu-item-object-us_main_page_section w-nav-item level_1 menu-item-1765">
-			<div class="w-nav-item-h">
-				<a class="w-nav-anchor level_1" href="/pages">
-				<span class="w-nav-title">Pages</span>
-				<span class="w-nav-hint"></span>
-				</a>
-			</div>
-		</div>
-		<div id="menu-requests" class="menu-item menu-item-type-post_type menu-item-object-us_main_page_section w-nav-item level_1 menu-item-1935">
-			<div class="w-nav-item-h">
-				<a class="w-nav-anchor level_1" href="/requests">
-				<span class="w-nav-title">Requests</span>
-				<span class="w-nav-hint"></span>
-				</a>
-			</div>
-		</div>
-		<div id="menu-login" class="menu-item menu-item-type-post_type menu-item-object-us_main_page_section w-nav-item level_1 menu-item-1770">
-			<div class="w-nav-item-h">
-				<a class="w-nav-anchor level_1" href="/login">
-				<span class="w-nav-title">Login</span>
-				<span class="w-nav-hint"></span>
-				</a>
-			</div>
-		</div>
-	</div>
+<div id="menu-bar" class="center-content-v">
+    <a href="/create">
+        <div id="menu-create" class="menu-item">
+            <span>Create Page</span>
+        </div>
+    </a>
+    <a href="/pages">
+        <div id="menu-pages" class="menu-item">
+            <span>Pages</span>
+        </div>
+    </a>
+    <a href="/requests">
+        <div id="menu-requests" class="menu-item">
+            <span>Requests</span>
+        </div>
+    </a>
+    {% if user.is_authenticated %}
+        <a href="/login">
+            <div id="menu-login" class="menu-item">
+                <span id="user-name"
+                      onmouseover="showLogout(); return false;"
+                      onmouseout="showUserName(); return false;"
+                      onclick="location.href='{% url 'auth:logout' %}?next=/'">
+                    {{ user.get_full_name|default:user.username }}
+                </span>
+            </div>
+        </a>
+    {% else %}
+        <a href="/login">
+            <div id="menu-login" class="menu-item">
+                <span>Login</span>
+            </div>
+        </a>
+    {% endif %}
 </div>

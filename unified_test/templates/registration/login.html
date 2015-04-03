@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% block title %}Login/SignUp{% endblock %}
 {% block description %}Login or sign up.{% endblock %}
+{% block extra-content-classes %}center-content-hv{% endblock %}
 {% block extra_libraries %}
     <script type="text/javascript" src="/static/js/login.js"></script>
     <link href="/static/css/login.css" rel="stylesheet" type="text/css"/>
@@ -13,7 +14,7 @@
             <div id="signup_wrapper">
                 <!-- Email signup. Form needed for validation. -->
                 <!-- Start hidden -->
-                <form action="#" method="POST" id="signup-email-form" class="row no-margin"
+                <form action="#" method="POST" id="signup-email-form" class="no-margin"
                       onsubmit="signupWithEmail();return false;">
                     <h2 class="login-header">Sign Up</h2>
                     {% csrf_token %}
@@ -42,6 +43,10 @@
                     <input id="signup-password-confirm" class="input-textbox" type="password" name="CONFIRM_PASSWORD"
                            placeholder="Confirm password" tabindex="4" required pattern=".&#123;{{ MIN_PASSWORD_LENGTH }},}"
                            title="Must contain at least {{ MIN_PASSWORD_LENGTH }} characters."/>
+
+                    <button id="login-signup-email-submit" class="serengeti-button submit-button-auth" type="submit" tabindex="6">
+                        Sign Up
+                    </button>
                 </form>
             </div>
             <!-- Login section -->
@@ -58,11 +63,9 @@
                            placeholder="Password" tabindex="11" required pattern=".&#123;{{ MIN_PASSWORD_LENGTH }},}"
                            title="Must contain at least {{ MIN_PASSWORD_LENGTH }} characters."/>
                     <!-- Login button -->
-                    <div class="login-submit-buttons-container">
-                        <button id="login-login-email-submit" class="serengeti-button" type="submit" tabindex="13">
-                            Login
-                        </button>
-                    </div>
+                    <button id="login-login-email-submit" class="serengeti-button submit-button-auth" type="submit" tabindex="13">
+                        Login
+                    </button>
                 </form>
             </div>
         </div>

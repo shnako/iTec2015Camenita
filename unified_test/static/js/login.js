@@ -8,7 +8,7 @@ function signupWithEmail() {
     // Use AJAX to send as parameters.
     $.ajax({
         type: "POST",
-        url: apiUrl + "create-user-website/",
+        url: apiUrl + "register/",
         data: signupForm.serialize(),
         complete: function (xhr) {
             if (xhr.status == 200) {
@@ -27,7 +27,7 @@ function loginWithEmail() {
     // Use AJAX to send as parameters.
     $.ajax({
         type: "POST",
-        url: apiUrl + "login-email-website/",
+        url: apiUrl + "login/",
         data: $("#login-email-form").serialize(),
         complete: function (xhr) {
             if (xhr.status == 200) {
@@ -40,4 +40,16 @@ function loginWithEmail() {
             }
         }
     });
+}
+
+var name;
+
+function showLogout() {
+    var userNameSpan = $("#user-name");
+    name = userNameSpan.text();
+    userNameSpan.text("Logout");
+}
+
+function showUserName() {
+    $("#user-name").text(name);
 }
