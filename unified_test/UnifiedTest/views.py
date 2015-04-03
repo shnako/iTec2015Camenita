@@ -10,7 +10,7 @@ from UnifiedTest.forms import PageForm
 
 
 def index(request):
-    pages = Page.objecte.all()  # filter(user=request.user)
+    pages = Page.objects.all()  # filter(user=request.user)
     create_url = request.build_absolute_uri(reverse('create-page'))
     context = {'create_url': create_url}
     return render_to_response('app/index.html', context,
@@ -32,7 +32,7 @@ def get_unique_page_id():
 def create_page(request):
     if request.method == 'GET':
         generated_uuid = get_unique_page_id()
-        relative_url = reverse('use-page', kwargs={'page_uuid': generated_uuid})
+        relative_url = reverse('use-page', kwargs={'page_ref': generated_uuid})
         url = request.build_absolute_uri(relative_url)
         form = PageForm(initial={'url': url, 'ref': generated_uuid})
     elif request.method == 'POST':
