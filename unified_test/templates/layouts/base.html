@@ -8,12 +8,12 @@
 <head>
     <title>{% block title %}Home{% endblock %} | UnifiedTest</title>
     <meta name="description"
-          content="{% block description %}Serengeti Animal Tracker - Your pocket guide to Serengeti National Park{% endblock %}">
+          content="{% block description %}Team Camenita{% endblock %}">
     {% include 'partials/includes.html' %}
     {% block extra_libraries %}{% endblock %}
 </head>
 <body>
-    {% include 'partials/header.html' %}
+    {% include 'partials/nav.html' %}
     {% block container %}
         <div id="main-wrapper" class="{% block extra-main-classes %}{% endblock %}">
             {% block content %}{% endblock %}

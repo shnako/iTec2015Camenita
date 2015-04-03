@@ -37,7 +37,6 @@ ALLOWED_HOSTS = []
 # Where to go after a successful login.
 LOGIN_REDIRECT_URL = '/pages/'
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -49,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'UnifiedTest',
+    'user_management',
     'django_extensions',
 )
 
@@ -72,8 +72,12 @@ WSGI_APPLICATION = 'unified_test.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'UnifiedTest',
+        'USER': 'django',
+        'PASSWORD': 'CUCF5JufhwApxpPq',
+        'HOST': 'shnako.com',
+        'PORT': '3306',
     }
 }
 

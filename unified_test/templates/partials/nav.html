@@ -1,35 +1,48 @@
-<div id="menu-bar" class="center-content-v">
-    <a href="/create">
-        <div id="menu-create" class="menu-item">
-            <span>Create Page</span>
-        </div>
+<div id="nav" class="navbar">
+    <!-- logo -->
+    <a href="/">
+        <img id="logo" src="/static/img/logo_unifiedtest.png" alt="UnifiedTest">
     </a>
-    <a href="/pages">
-        <div id="menu-pages" class="menu-item">
-            <span>Pages</span>
-        </div>
-    </a>
-    <a href="/requests">
-        <div id="menu-requests" class="menu-item">
-            <span>Requests</span>
-        </div>
-    </a>
-    {% if user.is_authenticated %}
-        <a href="/login">
-            <div id="menu-login" class="menu-item">
-                <span id="user-name"
-                      onmouseover="showLogout(); return false;"
-                      onmouseout="showUserName(); return false;"
-                      onclick="location.href='{% url 'auth:logout' %}?next=/'">
-                    {{ user.get_full_name|default:user.username }}
-                </span>
+
+    <div id="menu-bar" class="center-content-v">
+        <a href="/create">
+            <div id="menu-create" class="menu-item">
+                <span>Create Page</span>
             </div>
         </a>
-    {% else %}
-        <a href="/login">
-            <div id="menu-login" class="menu-item">
-                <span>Login</span>
+        <a href="/pages">
+            <div id="menu-pages" class="menu-item">
+                <span>Pages</span>
             </div>
         </a>
-    {% endif %}
+        <a href="/requests">
+            <div id="menu-requests" class="menu-item">
+                <span>Requests</span>
+            </div>
+        </a>
+    </div>
+
+    <div id="user-bar">
+        {% if user.is_authenticated %}
+            <a href="/login">
+                <form action="#" method="POST" id="logout-form" onsubmit="logout();return false;">
+                    {% csrf_token %}
+                    <div id="menu-login" class="menu-item">
+                    <span id="user-name"
+                          onmouseover="showLogout(); return false;"
+                          onmouseout="showUserName(); return false;"
+                          onclick="$(this).closest('form').submit()">
+                        {{ user.get_full_name|default:user.username }}
+                    </span>
+                    </div>
+                </form>
+            </a>
+        {% else %}
+            <a href="/login">
+                <div id="menu-login" class="menu-item">
+                    <span>Login</span>
+                </div>
+            </a>
+        {% endif %}
+    </div>
 </div>

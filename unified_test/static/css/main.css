@@ -19,17 +19,21 @@ button:hover {
     border-color: #f8862c;
 }
 
-#header-bar {
+#nav {
     background-color: #4d5965;
     border-radius: 0;
     margin-bottom: 0;
 }
 
-#logo, #menu-bar {
+#logo, #menu-bar, #user-bar {
     margin: 10px;
 }
 
-#menu-bar {
+#logo, #menu-bar{
+    float: left;
+}
+
+#user-bar {
     float: right;
 }
 
