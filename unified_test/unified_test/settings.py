@@ -34,6 +34,9 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Where to go after a successful login.
+LOGIN_REDIRECT_URL = '/pages/'
+
 
 # Application definition
 
@@ -44,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'UnifiedTest',
 )
 
