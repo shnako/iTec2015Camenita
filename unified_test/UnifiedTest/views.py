@@ -1,16 +1,12 @@
 import uuid
-import urlparse
-from django.shortcuts import render, render_to_response
+
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-<<<<<<< HEAD
 from django.core.urlresolvers import reverse
-from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.utils.translation import ugettext as _
-from annoying.decorators import render_to
 
 from UnifiedTest.models import Page
-from UnifiedTest.forms import CreatePageForm
+from UnifiedTest.forms import PageForm
 
 
 def login(request):
@@ -28,6 +24,7 @@ def index(request):
     return render_to_response('app/index.html', context,
                               RequestContext(request))
 
+
 def get_unique_page_id():
     generated_uuid = uuid.uuid4().hex
     ok = False
@@ -39,24 +36,32 @@ def get_unique_page_id():
 
     return generated_uuid
 
+
 def create_page(request):
     if request.method == 'GET':
         generated_uuid = get_unique_page_id()
         relative_url = reverse('use-page', kwargs={'page_uuid': generated_uuid})
         url = request.build_absolute_uri(relative_url)
-        form = CreatePageForm(initial={'url': url, 'user': request.user})
+        form = PageForm(initial={'url': url, 'user': request.user})
     elif request.method == 'POST':
-        form = CreatePageForm(request.POST)
+        form = PageForm(request.POST)
         if form.is_valid():
-            form.save()
+            page = form.save()
             # TODO: save the user
-            #page = form.save(commit=False)
+            # page = form.save(commit=False)
             #page.user = request.user
             #page.save()
-            # TODO: redirect to view page
-            return HttpResponseRedirect(reverse(create_page))
+            return HttpResponseRedirect(reverse('view-page', kwargs={'page_id': page.id}))
     return render_to_response('app/create.html', context={'form': form},
                               context_instance=RequestContext(request))
+
+
+def view_page_details(request, page_id):
+    page = get_object_or_404(Page, id=page_id)
+    form = PageForm(instance=page)
+    return render_to_response('app/view.html', {'form': form},
+                              RequestContext(request))
+
 
 def use_page(request, page_uuid):
     pass
