@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>   <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>   <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+    <head>
+        <title>{% block title %}Home{% endblock %} | UnifiedTest</title>
+        <meta name="description"
+              content="{% block description %}Serengeti Animal Tracker - Your pocket guide to Serengeti National Park{% endblock %}">
+        <!-- COMMON INCLUDES -->
+        {% include 'partials/includes.html' %}
+        {% block extra_libraries %}{% endblock %}
+        <!-- END: COMMON INCLUDES -->
+    </head>
+    <body>
+        <div id="wrapper">
+            <!-- SIDEBAR BEGIN -->
+            {% include 'partials/nav.html' %}
+            <!--END: SIDEBAR -->
+            {% block container %}
+                <div id="main-wrapper" class="col-xs-12 col-md-10">
+                    {% block app-container %}
+                        <div id="main">
+                            <div class="row clearfix">
+                                {% block main-content %}
+                                    <div id="main-content" class="col-xs-12">
+                                        <div class="col-xs-12 column content shadow">
+                                            {% block content %}{% endblock %}
+                                        </div>
+                                    </div>
+                                {% endblock %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    </body>
+</html>

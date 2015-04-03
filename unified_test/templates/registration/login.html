@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Login/SignUp{% endblock %}
+{% block description %}Login or sign up.{% endblock %}
+{% block extra_libraries %}
+    <script type="text/javascript" src="/static/js/login.js"></script>
+    <link href="/static/css/login.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="fill-parent center-content-hv">
+        <div id="login_signup_container">
+            <!-- Signup section -->
+            <div id="signup_wrapper">
+                <!-- Email signup. Form needed for validation. -->
+                <!-- Start hidden -->
+                <form action="#" method="POST" id="signup-email-form" class="row no-margin"
+                      onsubmit="signupWithEmail();return false;">
+                    <h2 class="login-header">Sign Up</h2>
+                    {% csrf_token %}
+                    <div class="input-textbox">
+                        <!-- Name textbox. Allow Ana-Maria O'Reilly Popescu. -->
+                        <input id="signup-first-name" style="width: 49%;" type="text"
+                               name="FIRST-NAME" placeholder="First Name"
+                               tabindex="1" required pattern="[a-zA-Z-' ]+"
+                               title="Input at least one forename (e.g. Jack)."/>
+                        <!-- Name textbox. Allow Ana-Maria O'Reilly Popescu. -->
+                        <input id="signup-last-name" style="width: 49%; float: right;" type="text"
+                               name="LAST-NAME" placeholder="Last Name"
+                               tabindex="2" required pattern="[a-zA-Z-' ]+"
+                               title="Input your surname (e.g. O'Reilly)."/>
+                    </div>
+                    <!-- Email textbox -->
+                    <input id="signup-email" class="input-textbox" type="email" name="EMAIL" placeholder="Email"
+                           tabindex="3" required/>
+
+                    <!-- Password textbox. Minimum {{ MIN_PASSWORD_LENGTH }} characters. -->
+                    <input id="signup-password" class="input-textbox" type="password" name="PASSWORD"
+                           placeholder="Password" tabindex="4" required pattern=".&#123;{{ MIN_PASSWORD_LENGTH }},}"
+                           title="Must contain at least {{ MIN_PASSWORD_LENGTH }} characters."/>
+
+                    <!-- Confirm password textbox. Minimum {{ MIN_PASSWORD_LENGTH }} characters. -->
+                    <input id="signup-password-confirm" class="input-textbox" type="password" name="CONFIRM_PASSWORD"
+                           placeholder="Confirm password" tabindex="4" required pattern=".&#123;{{ MIN_PASSWORD_LENGTH }},}"
+                           title="Must contain at least {{ MIN_PASSWORD_LENGTH }} characters."/>
+                </form>
+            </div>
+            <!-- Login section -->
+            <div id="login_wrapper">
+                <!-- Form needed for validation -->
+                <form action="#" method="POST" id="login-email-form" onsubmit="loginWithEmail();return false;">
+                    <h2 class="login-header">Login</h2>
+                    {% csrf_token %}
+                    <!-- Email textbox -->
+                    <input id="login-email" class="input-textbox" type="email" name="EMAIL" placeholder="Email"
+                           tabindex="10" required autofocus/>
+                    <!-- Password textbox. Minimum {{ MIN_PASSWORD_LENGTH }} characters. -->
+                    <input id="login-password" class="input-textbox" type="password" name="PASSWORD"
+                           placeholder="Password" tabindex="11" required pattern=".&#123;{{ MIN_PASSWORD_LENGTH }},}"
+                           title="Must contain at least {{ MIN_PASSWORD_LENGTH }} characters."/>
+                    <!-- Login button -->
+                    <div class="login-submit-buttons-container">
+                        <button id="login-login-email-submit" class="serengeti-button" type="submit" tabindex="13">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
