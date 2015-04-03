@@ -1,0 +1,3 @@
+Blue: #4d5965
+Orange: #f8862c
+White: #ffffff
