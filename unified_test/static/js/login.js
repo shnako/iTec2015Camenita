@@ -1,5 +1,5 @@
-function signupWithEmail() {
-    var signupForm = $("#signup-email-form");
+function register() {
+    var signupForm = $("#register-form");
     if (signupForm[0].elements["PASSWORD"].value != signupForm[0].elements["CONFIRM_PASSWORD"].value) {
         showErrorToast("The password must match the password confirmation!");
         return;
@@ -8,12 +8,12 @@ function signupWithEmail() {
     // Use AJAX to send as parameters.
     $.ajax({
         type: "POST",
-        url: apiUrl + "register/",
+        url: "/register/",
         data: signupForm.serialize(),
         complete: function (xhr) {
             if (xhr.status == 200) {
-                // User created. Redirect to the profile.
-                window.location.replace("/my-profile/");
+                // User created. Redirect to the pages.
+                window.location.replace("/pages/");
             } else if (xhr.status == 400) { // Server decided details specified are invalid. Use message.
                 showErrorToast(xhr.responseText, 10000);
             } else {
@@ -23,16 +23,16 @@ function signupWithEmail() {
     });
 }
 
-function loginWithEmail() {
+function login() {
     // Use AJAX to send as parameters.
     $.ajax({
         type: "POST",
-        url: apiUrl + "login/",
-        data: $("#login-email-form").serialize(),
+        url: "/login/",
+        data: $("#login-form").serialize(),
         complete: function (xhr) {
             if (xhr.status == 200) {
-                // User created. Redirect to the profile.
-                window.location.replace("/my-profile/");
+                // User created. Redirect to the pages.
+                window.location.replace("/pages/");
             } else if (xhr.status == 400) { // Server decided details specified are invalid. Use message.
                 showErrorToast(xhr.responseText, 10000);
             } else {
@@ -52,4 +52,23 @@ function showLogout() {
 
 function showUserName() {
     $("#user-name").text(name);
+}
+
+function logout() {
+    // Use AJAX to send as parameters.
+    $.ajax({
+        type: "POST",
+        url: "/logout-user/",
+        data: $("#logout-form").serialize(),
+        complete: function (xhr) {
+            if (xhr.status == 200) {
+                // User created. Redirect to the pages.
+                window.location.replace("/pages/");
+            } else if (xhr.status == 400) { // Server decided details specified are invalid. Use message.
+                showErrorToast(xhr.responseText, 10000);
+            } else {
+                window.alert('An error occurred!\r\ncode: ' + xhr.status + "\r\nstatus: " + xhr.responseText);
+            }
+        }
+    });
 }

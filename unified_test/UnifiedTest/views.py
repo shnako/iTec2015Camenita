@@ -9,15 +9,6 @@ from UnifiedTest.models import Page
 from UnifiedTest.forms import PageForm
 
 
-def login(request):
-    context = RequestContext(request)
-    context_dict = {
-    }
-
-    # Render the response and send it back!
-    return render_to_response('registration/login.html', context_dict, context)
-
-
 def index(request):
     pages = Page.objecte.all()  # filter(user=request.user)
     create_url = request.build_absolute_uri(reverse('create-page'))
