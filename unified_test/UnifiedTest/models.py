@@ -3,11 +3,12 @@ from django.contrib.auth.models import User
 
 
 class Page(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True, blank=True)
+    url = models.CharField(max_length=200)
     status_code = models.PositiveIntegerField(default=200)
     delay = models.PositiveIntegerField(default=0, null=True, blank=True)
     response = models.TextField()
-    dynamic_code = models.TextField()
+    dynamic_code = models.TextField(blank=True)
 
 
 class PageAccessLog(models.Model):
