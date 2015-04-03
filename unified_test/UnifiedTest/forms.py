@@ -5,4 +5,5 @@ from UnifiedTest.models import Page
 class PageForm(forms.ModelForm):
     class Meta:
         model = Page
-        fields = ('url', 'status_code', 'delay', 'response', 'dynamic_code')
+        fields = ('ref', 'url', 'status_code', 'delay', 'response',
+                  'dynamic_code')

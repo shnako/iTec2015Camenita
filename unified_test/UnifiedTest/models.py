@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Page(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
+    ref = models.CharField(max_length=64)
     url = models.CharField(max_length=200)
     status_code = models.PositiveIntegerField(default=200)
     delay = models.PositiveIntegerField(default=0, null=True, blank=True)
