@@ -67,4 +67,5 @@ class UsePage(APIView):
         code = request.data.get('code', '')
         return self._handle_request(request, HTTP_METHODS.DELETE, page_ref, code)
 
-
+def search_pages(self, request):
+    pass
