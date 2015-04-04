@@ -1,5 +1,6 @@
 import uuid
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
@@ -76,20 +77,24 @@ def view_page_details(request, page_ref):
 
 @login_required
 def view_request_details(request, request_id):
-    # TODO Verify user is owner
     try:
-        request = PageAccessLog.objects.get(id=request_id)
+        request_object = PageAccessLog.objects.get(id=request_id)
+        if request.user != request_object.page.user:
+            raise PermissionDenied
     except:
+        # Not going into details to avoid leaking information.
         raise UnifiedTestRequestException("Invalid request id!")
 
-    return HttpResponse(request.request_body, status=status.HTTP_200_OK)
+    return HttpResponse(request_object.request_body, status=status.HTTP_200_OK)
 
 @login_required
 def view_response_details(request, request_id):
-    # TODO Verify user is owner
     try:
-        request = PageAccessLog.objects.get(id=request_id)
+        response_object = PageAccessLog.objects.get(id=request_id)
+        if request.user != response_object.page.user:
+            raise PermissionDenied
     except:
+        # Not going into details to avoid leaking information.
         raise UnifiedTestRequestException("Invalid request id!")
 
-    return HttpResponse(request.response_body, status=status.HTTP_200_OK)
+    return HttpResponse(response_object.response_body, status=status.HTTP_200_OK)
