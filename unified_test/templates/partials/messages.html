@@ -1,0 +1,11 @@
+{% if messages %}
+    <script>
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                showConfirmationToast('{{ message }}', 5000);
+            {% elif message.level ==  DEFAULT_MESSAGE_LEVELS.ERROR %}
+                showErrorToast('{{ message }}', 5000);
+            {% endif %}
+        {% endfor %}
+    </script>
+{% endif %}

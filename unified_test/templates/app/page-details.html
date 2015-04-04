@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block content %}
-
     <form id="form-content" class="container center-content-h content-container" method="POST"
           action="{% if mode == 'create' %}{% url 'create-page' %}{% elif mode == 'edit' %}{% url 'edit-page' page_form.ref.value %}{% endif %}">
         {% if form.non_field_errors %}

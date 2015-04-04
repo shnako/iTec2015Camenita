@@ -1,3 +1,4 @@
+from django.contrib import messages
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -52,5 +53,5 @@ def delete_page(request, page_ref):
     page.authentication.delete()
     page.delete()
 
-    # Confirm with a 200 OK.
+    messages.success(request, 'The page has been deleted.')
     return Response()

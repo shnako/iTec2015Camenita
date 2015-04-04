@@ -1,3 +1,8 @@
+/* region Toasts */
+
+/* endregion */
+
+/* region Authentication controls */
 var controlType, controlUsername, controlPassword, controlHeaderName, controlHeaderValue, controlToken, controlValue;
 var liUsername, liPassword, liHeaderName, liHeaderValue, liToken, liValue;
 var selectedType;
@@ -109,3 +114,4 @@ $(document).ready(function () {
 
     loadInitialValue(initialValue);
 });
+/* endregion */
