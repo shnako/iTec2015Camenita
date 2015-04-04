@@ -1,7 +1,3 @@
-/* http://ericprieto.com/freebie/simply-toast/ */
-/* The below helper functions have been implemented by Vlad Schnakovszki and are not available in the official library! */
-/* Make sure you paste them over if you upgrade this library! */
-/* Helpers */
 function showErrorToast(message, delay) {
     $.extend(true, $.simplyToast.defaultOptions,
         {

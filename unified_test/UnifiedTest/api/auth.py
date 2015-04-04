@@ -6,7 +6,6 @@ from UnifiedTest.models import Page, PageAuthentication
 
 
 class UnifiedPostAuth(authentication.BaseAuthentication):
-
     def try_basic_http_auth(self, request, page):
         auth_header = request.META.get('HTTP_AUTHORIZATION', None)
         if not auth_header:
@@ -48,4 +47,3 @@ class UnifiedPostAuth(authentication.BaseAuthentication):
         elif page.authentication.type == available_schemes.OAuth:
             # TODO:
             return
-
