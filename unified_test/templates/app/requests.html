@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% block title %}Requests{% endblock %}
 {% block extra-content-classes %}center-content-hv{% endblock %}
+{% load key_value %}
 
 {% block content %}
 
@@ -19,8 +20,9 @@
             <tr>
                 <td>{{ request.timestamp }}</td>
                 <td>{{ request.request_method }}</td>
-                <td>{{ request.request_body }}</td>
-                <td>{{ request.response_body }}</td>
+                <td><a href="{{ view_page_request_absolute_urls|key_value:request.id }}">View Request</a></td>
+                <td><a href="{{ view_page_response_absolute_urls|key_value:request.id }}">View Response</a></td>
+{#                <td>{{ request.response_body }}</td>#}
             </tr>
         {% endfor %}
         </tbody>

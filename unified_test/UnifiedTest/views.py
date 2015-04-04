@@ -93,7 +93,7 @@ def create_page(request):
             page_authentication.value = request.POST.get('value')
             page_authentication.save()
 
-            messages.success(request, 'The page has been created.')
+            messages.success(request, 'Page details saved.')
             return HttpResponseRedirect(reverse('edit-page',
                                                 kwargs={'page_ref': page.ref}))
     return render_to_response('app/page-details.html', context={
@@ -130,7 +130,6 @@ def edit_page(request, page_ref):
             page_authentication = page_authentication_form.save(commit=False)
             page_authentication.value = request.POST.get('value')
             page_authentication.save()
-            messages.success(request, 'The page details have been saved.')
         else:
             print page_form.errors
     return render_to_response('app/page-details.html', context={
