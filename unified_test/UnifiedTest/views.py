@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 
-from UnifiedTest.models import Page
+from UnifiedTest.models import Page, PageAccessLog
 from UnifiedTest.forms import PageForm
 from user_management.views import login_user
 
@@ -23,6 +23,14 @@ def pages(request):
     user_pages = Page.objects.filter(user=request.user)
     context = {'pages': user_pages}
     return render_to_response('app/pages.html', context, RequestContext(request))
+
+
+@login_required
+def requests(request):
+    user_pages = Page.objects.filter(user=request.user)
+    user_requests = PageAccessLog.objects.filter(page__in=user_pages)
+    context = {'requests': user_requests}
+    return render_to_response('app/requests.html', context, RequestContext(request))
 
 
 def get_unique_page_id():

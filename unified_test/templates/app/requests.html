@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Requests{% endblock %}
+{% block extra-content-classes %}center-content-hv{% endblock %}
+
+{% block content %}
+
+    <table id="table-content" class="container center-content-h content-container">
+        <thead>
+        <tr>
+            <th>Date and Time</th>
+            <th>Method</th>
+            <th>Request Body</th>
+            <th>Response Body</th>
+            <th>Credentials</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for request in requests %}
+            <tr>
+                <td></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

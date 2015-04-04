@@ -40,6 +40,10 @@ button:hover {
     color: white;
 }
 
+.content-container th {
+    color: #f8862c;
+}
+
 /*
 =======================
 Navigation.
@@ -82,11 +86,6 @@ Navigation.
 Forms.
 =======================
 */
-#form-content {
-    margin-top: 50px;
-
-}
-
 #form-content li {
     list-style-type: none;
     margin-bottom: 10px;
@@ -110,6 +109,16 @@ Forms.
     border-width: 1px;
     border-color: white;
     border-style: solid;
+}
+
+/*
+=======================
+Tables.
+=======================
+*/
+#table-content {
+    width: 100%;
+    table-layout: fixed;
 }
 
 /*
