@@ -23,7 +23,7 @@
         <tbody>
         {% for request in requests %}
             <tr>
-                <td><a href="{% url 'use-page' request.page.ref %}">{{ request.page }}</a></td>
+                <td><a href="{% url 'edit-page' request.page.ref %}">{{ request.page }}</a></td>
                 <td>{{ request.timestamp }}</td>
                 <td>{{ request.request_method }}</td>
                 <td><a href="{% url 'view-request-body' request.id %}">View Request</a></td>
