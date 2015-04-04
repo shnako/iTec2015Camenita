@@ -128,9 +128,7 @@ Forms.
     background-color: #4d5965;
     color: white;
     font-size: 20px;
-    border-width: 1px;
-    border-color: white;
-    border-style: solid;
+    border: 1px solid white;
 }
 
 #status-code-select {
@@ -146,9 +144,7 @@ Forms.
 #search-form button {
     color: white;
     background-color: #4d5965;
-    border-width: 1px;
-    border-color: white;
-    border-style: solid;
+    border: 1px solid white;
     padding: 3px;
 }
 
@@ -177,9 +173,7 @@ Tables.
 }
 
 #table-content tr {
-    border-width: 1px;
-    border-color: #4d5965;
-    border-style: solid;
+    border: 1px solid #4d5965;
 }
 
 #table-content tbody {
