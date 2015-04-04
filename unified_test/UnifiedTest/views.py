@@ -36,18 +36,28 @@ def pages(request):
     else:
         user_pages = Page.objects.filter(user=request.user)
 
-    context = {
+    return render_to_response('app/pages.html', {
         'pages': user_pages,
-    }
-    return render_to_response('app/pages.html', context,
-                              RequestContext(request))
+    }, RequestContext(request))
 
 
 @login_required
 def requests(request):
-    user_requests = PageAccessLog.objects.filter(page__user=request.user)
-    context = {'requests': user_requests}
-    return render_to_response('app/requests.html', context, RequestContext(request))
+    if request.method == "POST":
+        search_query = request.POST.get("SEARCH-QUERY")
+        if search_query is not None:
+            user_requests = PageAccessLog.objects.filter(
+                Q(page__ref__icontains=search_query)
+                | Q(timestamp__icontains=search_query)
+                | Q(request_method__icontains=search_query)
+                | Q(request_body__icontains=search_query)
+                | Q(response_body__icontains=search_query))
+    else:
+        user_requests = PageAccessLog.objects.filter(page__user=request.user)
+
+    return render_to_response('app/requests.html', {
+        'requests': user_requests
+    }, RequestContext(request))
 
 
 def get_unique_page_id():

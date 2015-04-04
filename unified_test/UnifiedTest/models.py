@@ -30,6 +30,7 @@ class PageAccessLog(models.Model):
     def __unicode__(self):
         return '{page} - {ts}'.format(page=self.page, ts=self.timestamp)
 
+
 class PageAuthentication(models.Model):
     AUTH_CHOICES = Choices('None', 'Basic', 'Headers', 'OAuth')
     page = models.OneToOneField(Page, related_name='authentication')
