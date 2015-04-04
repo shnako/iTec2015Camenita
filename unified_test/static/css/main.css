@@ -138,6 +138,25 @@ Forms.
     margin-right: 10px;
 }
 
+#search-form {
+    margin-top: 12px;
+    float: right;
+}
+
+#search-form button {
+    color: white;
+    background-color: #4d5965;
+    border-width: 1px;
+    border-color: white;
+    border-style: solid;
+    padding: 3px;
+}
+
+#search-form button:hover {
+    color: #f8862c;
+    border-color: #f8862c;
+}
+
 /*
 =======================
 Tables.
