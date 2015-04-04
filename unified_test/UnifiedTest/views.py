@@ -4,10 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from rest_framework import status
 
 from UnifiedTest.models import Page, PageAccessLog
 from UnifiedTest.forms import PageForm
+from unified_test.exceptions import UnifiedTestRequestException
 from user_management.views import login_user
 
 
@@ -71,3 +73,23 @@ def view_page_details(request, page_ref):
     form = PageForm(instance=page)
     return render_to_response('app/view.html', {'form': form},
                               RequestContext(request))
+
+@login_required
+def view_request_details(request, request_id):
+    # TODO Verify user is owner
+    try:
+        request = PageAccessLog.objects.get(id=request_id)
+    except:
+        raise UnifiedTestRequestException("Invalid request id!")
+
+    return HttpResponse(request.request_body, status=status.HTTP_200_OK)
+
+@login_required
+def view_response_details(request, request_id):
+    # TODO Verify user is owner
+    try:
+        request = PageAccessLog.objects.get(id=request_id)
+    except:
+        raise UnifiedTestRequestException("Invalid request id!")
+
+    return HttpResponse(request.response_body, status=status.HTTP_200_OK)
