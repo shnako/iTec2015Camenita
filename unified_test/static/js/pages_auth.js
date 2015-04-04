@@ -1,28 +1,38 @@
 var controlType, controlUsername, controlPassword, controlHeaderName, controlHeaderValue, controlToken, controlValue;
-var liUsername, liPassword, liHeaderName, liHeaderValue, liToken;
+var liUsername, liPassword, liHeaderName, liHeaderValue, liToken, liValue;
 var selectedType;
 
 function updateControls() {
     selectedType = controlType.find("option:selected").val();
 
-    if (selectedType == "Basic") {
+    if (selectedType == "None") {
+        liUsername.hide();
+        liPassword.hide();
+        liHeaderName.hide();
+        liHeaderValue.hide();
+        liToken.hide();
+        liValue.hide();
+    } else if (selectedType == "Basic") {
         liUsername.show();
         liPassword.show();
         liHeaderName.hide();
         liHeaderValue.hide();
         liToken.hide();
+        liValue.show();
     } else if (selectedType == "Headers") {
         liUsername.hide();
         liPassword.hide();
         liHeaderName.show();
         liHeaderValue.show();
         liToken.hide();
+        liValue.show();
     } else if (selectedType == "OAuth") {
         liUsername.hide();
         liPassword.hide();
         liHeaderName.hide();
         liHeaderValue.hide();
         liToken.show();
+        liValue.show();
     }
 
     calculateValue();
@@ -31,7 +41,9 @@ function updateControls() {
 function calculateValue() {
     controlValue.val(""); // Reset value to empty.
 
-    if (selectedType == "Basic") {
+    if (selectedType == "None") {
+        return; // Do nothing as already empty. Using unneeded return to prevent future problems.
+    } else if (selectedType == "Basic") {
         if ((controlUsername.val() + ":" + controlPassword.val()).length > 1) {
             controlValue.val(Base64.encode(controlUsername.val() + ":" + controlPassword.val()));
         }
@@ -89,6 +101,7 @@ $(document).ready(function () {
     liToken = controlToken.parent();
 
     controlValue = $("#id_value");
+    liValue = controlValue.parent();
 
     var initialValue = controlValue.val();
 

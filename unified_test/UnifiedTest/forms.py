@@ -17,7 +17,7 @@ class PageAuthenticationForm(forms.ModelForm):
     token = forms.CharField(required=False)
     header_name = forms.CharField(required=False)
     header_value = forms.CharField(required=False)
-    value = forms.CharField(
+    value = forms.CharField(required=False,
         widget=forms.TextInput(attrs={'readonly': 'readonly'})
     )
 
