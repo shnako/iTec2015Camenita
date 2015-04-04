@@ -16,7 +16,12 @@
         {% endif %}
 
         {% csrf_token %}
-        {{ form.as_ul }}
+        <h4>Parameters</h4>
+        <hr>
+        {{ page_form.as_ul }}
+        <h4>Authentication</h4>
+        <hr>
+        {{ page_authentication_form.as_ul }}
         <button class="submit-button" type="submit">
             Save
         </button>
@@ -26,11 +31,11 @@
         var textarea_response = document.getElementById('id_response');
         textarea_response.addEventListener('dragover', handleDragOver, false);
         textarea_response.addEventListener('drop', handleFileSelect, false);
-        textarea_response.setAttribute('placeholder','You can also drag a file here!');
+        textarea_response.setAttribute('placeholder', 'You can also drag a file here!');
         var textarea_dynamic_code = document.getElementById('id_dynamic_code');
         textarea_dynamic_code.addEventListener('dragover', handleDragOver, false);
         textarea_dynamic_code.addEventListener('drop', handleFileSelect, false);
-        textarea_dynamic_code.setAttribute('placeholder','You can also drag a file here!');
+        textarea_dynamic_code.setAttribute('placeholder', 'You can also drag a file here!');
     </script>
 
 {% endblock %}

@@ -27,3 +27,9 @@ class PageAccessLog(models.Model):
 
     def __unicode__(self):
         return '{page} - {ts}'.format(page=self.page, ts=self.timestamp)
+
+class PageAuthentication(models.Model):
+    AUTH_CHOICES = Choices('Basic', 'Headers', 'OAuth')
+    page = models.ForeignKey(Page, related_name='credentials')
+    type = models.CharField(choices=AUTH_CHOICES, default=AUTH_CHOICES.Basic, max_length=10)
+    value = models.CharField(max_length=1024)

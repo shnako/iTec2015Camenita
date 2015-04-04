@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from rest_framework import status
 
 from UnifiedTest.models import Page, PageAccessLog
-from UnifiedTest.forms import PageForm
+from UnifiedTest.forms import PageForm, PageAuthenticationForm
 from unified_test.exceptions import UnifiedTestRequestException
 from user_management.views import login_user
 
@@ -79,16 +79,17 @@ def create_page(request):
     if request.method == 'GET':
         generated_uuid = get_unique_page_id()
         url = use_page_absolute_url(request, generated_uuid)
-        form = PageForm(initial={'url': url, 'ref': generated_uuid})
+        page_form = PageForm(initial={'url': url, 'ref': generated_uuid})
+        page_authentication_form = PageAuthenticationForm()
     elif request.method == 'POST':
-        form = PageForm(request.POST)
-        if form.is_valid():
-            page = form.save(commit=False)
+        page_form = PageForm(request.POST)
+        if page_form.is_valid():
+            page = page_form.save(commit=False)
             page.user = request.user
             page.save()
             return HttpResponseRedirect(reverse('edit-page',
                                                 kwargs={'page_ref': page.ref}))
-    return render_to_response('app/create.html', context={'form': form},
+    return render_to_response('app/create.html', context={'page_form': page_form, 'page_authentication_form': page_authentication_form},
                               context_instance=RequestContext(request))
 
 

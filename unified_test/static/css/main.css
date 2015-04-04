@@ -91,13 +91,27 @@ Forms.
     margin-bottom: 10px;
 }
 
-#form-content input, #form-content textarea {
+#form-content input, #form-content textarea, #form-content select {
     width: 450px;
     float: right;
 }
 
 #form-content textarea {
     resize: vertical;
+    height: 100px;
+}
+
+#form-content h4 {
+    color: #f8862c;
+    text-align: center;
+}
+
+#form-content hr {
+    margin: 0;
+    margin-bottom: 10px;
+    border-color: white; /* works in Chrome and Safari */
+    background-color: white; /* works in Firefox and Opera */
+    color: white; /* works in Internet Explorer */
 }
 
 .submit-button {

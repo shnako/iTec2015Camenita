@@ -1,6 +1,7 @@
 from django import forms
 
-from UnifiedTest.models import Page
+from UnifiedTest.models import Page, PageAuthentication
+
 
 class PageForm(forms.ModelForm):
     url = forms.URLField()
@@ -9,3 +10,15 @@ class PageForm(forms.ModelForm):
         model = Page
         fields = ('ref', 'url', 'status_code', 'delay', 'response',
                   'dynamic_code')
+
+class PageAuthenticationForm(forms.ModelForm):
+    username = forms.CharField()
+    password = forms.CharField()
+    token = forms.CharField()
+    value = forms.CharField(
+        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+    )
+
+    class Meta:
+        model = PageAuthentication
+        fields = ('type',)
