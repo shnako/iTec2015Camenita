@@ -37,7 +37,7 @@ def get_unique_page_id():
     generated_uuid = uuid.uuid4().hex
     ok = False
     while not ok:
-        if Page.objects.filter(url__icontains=generated_uuid).count() != 0:
+        if Page.objects.filter(ref__icontains=generated_uuid).count() != 0:
             generated_uuid = uuid.uuid4().hex
         else:
             ok = True
@@ -56,7 +56,7 @@ def create_page(request):
         form = PageForm(request.POST)
         if form.is_valid():
             page = form.save(commit=False)
-            # page.user = request.user
+            page.user = request.user
             page.save()
             return HttpResponseRedirect(reverse('view-page',
                                                 kwargs={'page_ref': page.ref}))
