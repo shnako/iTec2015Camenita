@@ -113,5 +113,15 @@ $(document).ready(function () {
     updateControls();
 
     loadInitialValue(initialValue);
+
+    /* Drag and drop controls. */
+    var textarea_response = document.getElementById('id_response');
+    textarea_response.addEventListener('dragover', handleDragOver, false);
+    textarea_response.addEventListener('drop', handleFileSelect, false);
+    textarea_response.setAttribute('placeholder', 'You can also drag a file here!');
+    var textarea_dynamic_code = document.getElementById('id_dynamic_code');
+    textarea_dynamic_code.addEventListener('dragover', handleDragOver, false);
+    textarea_dynamic_code.addEventListener('drop', handleFileSelect, false);
+    textarea_dynamic_code.setAttribute('placeholder', 'You can also drag a file here!');
 });
 /* endregion */

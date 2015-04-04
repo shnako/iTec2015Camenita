@@ -31,14 +31,25 @@
     </form>
 
     <script>
-        var textarea_response = document.getElementById('id_response');
-        textarea_response.addEventListener('dragover', handleDragOver, false);
-        textarea_response.addEventListener('drop', handleFileSelect, false);
-        textarea_response.setAttribute('placeholder', 'You can also drag a file here!');
-        var textarea_dynamic_code = document.getElementById('id_dynamic_code');
-        textarea_dynamic_code.addEventListener('dragover', handleDragOver, false);
-        textarea_dynamic_code.addEventListener('drop', handleFileSelect, false);
-        textarea_dynamic_code.setAttribute('placeholder', 'You can also drag a file here!');
+        // This is executed here as it needs the Django templating to load status_code_select.html.
+        $(window).load(function () {
+            // Inject status code select.
+            var statusCodeControl = $(("#id_status_code"));
+            statusCodeControl.css("width", "80px");
+            $("{% include 'partials/status_code_select.html' %}").insertAfter("#id_status_code");
+
+            // Events synchronizing the two controls.
+            statusCodeControl.on('input', function () {
+                statusCodeSelectControl.val(statusCodeControl.val());
+            });
+            var statusCodeSelectControl = $("#status-code-select");
+            statusCodeSelectControl.on('change', function () {
+                statusCodeControl.val(statusCodeSelectControl.val());
+            });
+
+            // Synchronize the default value.
+            statusCodeSelectControl.val(statusCodeControl.val());
+        });
     </script>
 
 {% endblock %}
