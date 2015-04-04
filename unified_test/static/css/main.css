@@ -98,8 +98,10 @@ Forms.
 }
 
 #form-content input, #form-content textarea, #form-content select {
-    width: 450px;
+    width: 420px;
+    height: 25px;
     float: right;
+
 }
 
 #form-content textarea {
@@ -129,6 +131,11 @@ Forms.
     border-width: 1px;
     border-color: white;
     border-style: solid;
+}
+
+#status-code-select {
+    width: 330px !important;
+    margin-right: 10px;
 }
 
 /*
