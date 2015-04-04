@@ -44,7 +44,7 @@ class UsePage(APIView):
             else:
                 response_body = ''
 
-        time.sleep(page.delay/1000)
+        time.sleep(page.delay)
 
         log_item.response_body = response_body
         log_item.save()
