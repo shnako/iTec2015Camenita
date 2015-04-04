@@ -52,8 +52,7 @@ def pages(request):
 
 @login_required
 def requests(request):
-    user_pages = Page.objects.filter(user=request.user)
-    user_requests = PageAccessLog.objects.filter(page__in=user_pages)
+    user_requests = PageAccessLog.objects.filter(page__user=request.user)
     context = {'requests': user_requests}
     return render_to_response('app/requests.html', context, RequestContext(request))
 

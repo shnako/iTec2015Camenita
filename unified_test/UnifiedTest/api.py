@@ -7,17 +7,21 @@ from django.utils import timezone
 from UnifiedTest.models import Page, PageAccessLog, HTTP_METHODS
 
 class UsePage(APIView):
+
+    def _get_page(self, page_ref):
+        return get_object_or_404(Page, ref=page_ref)
+
     # TODO Verify user is owner
-    def _create_acces_log_entry(self, request, page_ref, request_type):
-        page = get_object_or_404(Page, ref=page_ref)
+    def _create_acces_log_entry(self, request, page, request_type):
         PageAccessLog.objects.create(page=page, timestamp=timezone.now(),
                                      request_type=request_type,
-                                     request_body=request.data,
+                                     request_body=dict(request.data),
                                      response_body='Ana are mere')
         # TODO: compile the response body
 
     def get(self, request, page_ref, format=None):
-        self._create_acces_log_entry(request, page_ref, HTTP_METHODS.GET)
+        page = self._get_page(page_ref)
+        self._create_acces_log_entry(request, page, HTTP_METHODS.GET)
 
         return Response()
 
