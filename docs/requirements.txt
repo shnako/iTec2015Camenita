@@ -1,0 +1,6 @@
+sudo pip install Django
+sudo pip install django-annoying
+sudo pip install django-extensions
+sudo pip install djangorestframework
+sudo pip install django-model-utils
+sudo apt-get install python-mysqldb

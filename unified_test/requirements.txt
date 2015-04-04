@@ -1,5 +1,0 @@
-Django
-django-annoying
-djangorestframework
-django-model-utils
-mysql-python
