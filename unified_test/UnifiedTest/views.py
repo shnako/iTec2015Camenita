@@ -1,13 +1,16 @@
 import uuid
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from rest_framework import status
 
 from UnifiedTest.models import Page, PageAccessLog
 from UnifiedTest.forms import PageForm
+from unified_test.exceptions import UnifiedTestRequestException
 from user_management.views import login_user
 
 
@@ -84,3 +87,27 @@ def view_page_details(request, page_ref):
     form = PageForm(instance=page)
     return render_to_response('app/view.html', {'form': form},
                               RequestContext(request))
+
+@login_required
+def view_request_details(request, request_id):
+    try:
+        request_object = PageAccessLog.objects.get(id=request_id)
+        if request.user != request_object.page.user:
+            raise PermissionDenied
+    except:
+        # Not going into details to avoid leaking information.
+        raise UnifiedTestRequestException("Invalid request id!")
+
+    return HttpResponse(request_object.request_body, status=status.HTTP_200_OK)
+
+@login_required
+def view_response_details(request, request_id):
+    try:
+        response_object = PageAccessLog.objects.get(id=request_id)
+        if request.user != response_object.page.user:
+            raise PermissionDenied
+    except:
+        # Not going into details to avoid leaking information.
+        raise UnifiedTestRequestException("Invalid request id!")
+
+    return HttpResponse(response_object.response_body, status=status.HTTP_200_OK)
