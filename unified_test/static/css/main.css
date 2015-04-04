@@ -44,6 +44,12 @@ button:hover {
     color: #f8862c;
 }
 
+.errorlist {
+    color: red;
+    font-weight: bold;
+    padding-left: 0;
+}
+
 /*
 =======================
 Navigation.

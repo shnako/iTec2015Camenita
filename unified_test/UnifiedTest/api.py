@@ -1,13 +1,15 @@
 import time
 
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.conf import settings
 
-from UnifiedTest.models import Page, PageAccessLog, HTTP_METHODS
+from UnifiedTest.models import Page, PageAccessLog, HTTP_METHODS, PageAuthentication
+
 
 
 class UsePage(APIView):
@@ -62,3 +64,19 @@ class UsePage(APIView):
     def delete(self, request, page_ref, format=None):
         code = request.data.get('code', '')
         return self._handle_request(request, HTTP_METHODS.PUT, page_ref, code)
+
+def delete_page(request, page_ref):
+    page = get_object_or_404(Page, ref=page_ref)
+
+    try:
+        page.access_logs.all().delete()
+    except:
+        # No access logs, no worries.
+        pass
+
+    page.authentication.delete()
+    page.delete()
+
+    messages.success(request, 'The page has been deleted.')
+    return Response()
+>>>>>>> 560c98fc0a85b76b4ee710d31dc775624416a10a
