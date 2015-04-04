@@ -119,14 +119,26 @@ Tables.
 #table-content {
     width: 100%;
     table-layout: fixed;
+    padding-bottom: 10px;
 }
 
 #table-content td, #table-content th {
     text-align: center;
 }
 
-#table-content td {
-    color: white;
+#table-content th {
+    padding: 10px;
+}
+
+#table-content tr {
+    border-width: 1px;
+    border-color: #4d5965;
+    border-style: solid;
+}
+
+#table-content tbody {
+    color: #4d5965;
+    background-color: white;
 }
 
 /*
