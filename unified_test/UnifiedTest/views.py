@@ -20,33 +20,14 @@ def index(request):
         return redirect(login_user)
 
 
-def build_absolute_urls(request, pages, url_name):
-    urls = {}
-    for page in pages:
-        relative_url = reverse(url_name, kwargs={'page_ref': page.ref})
-        absolute_url = request.build_absolute_uri(relative_url)
-        urls[page.ref] = absolute_url
-
-    return urls
-
 @login_required
 def pages(request):
     user_pages = Page.objects.filter(user=request.user)
-    edit_page_absolute_urls = build_absolute_urls(request, user_pages,
-                                                  'edit-page')
-    use_absolute_urls = build_absolute_urls(request, user_pages, 'use-page')
-    view_page_response_absolute_urls = build_absolute_urls(request, user_pages,
-                                                           'view-page-response')
-    view_page_code_absolute_urls = build_absolute_urls(request, user_pages,
-                                                       'view-page-code')
     context = {
         'pages': user_pages,
-        'edit_page_absolute_urls': edit_page_absolute_urls,
-        'use_absolute_urls': use_absolute_urls,
-        'view_page_response_absolute_urls': view_page_response_absolute_urls,
-        'view_page_code_absolute_urls': view_page_code_absolute_urls
     }
-    return render_to_response('app/pages.html', context, RequestContext(request))
+    return render_to_response('app/pages.html', context,
+                              RequestContext(request))
 
 
 @login_required

@@ -23,10 +23,10 @@
                 <td>{{ page.delay }}</td>
                 <td>{{ page.authentication.type }}</td>
                 <td>
-                    <a href="{{ edit_page_absolute_urls|key_value:page.ref }}">View/Edit</a><br/>
-                    <a href="{{ use_absolute_urls|key_value:page.ref }}">Use</a><br/>
-                    <a href="{{ view_page_response_absolute_urls|key_value:page.ref }}">View Response</a><br/>
-                    <a href="{{ view_page_code_absolute_urls|key_value:page.ref }}">View Code</a><br/>
+                    <a href="{% url 'edit-page' page.ref %}">View/Edit</a><br/>
+                    <a href="{% url 'use-page' page.ref %}">Use</a><br/>
+                    <a href="{% url 'view-page-response' page.ref %}">View Response</a><br/>
+                    <a href="{% url 'view-page-code' page.ref %}">View Code</a><br/>
                     <a href="TODO">Delete</a><br/>
                 </td>
             </tr>
