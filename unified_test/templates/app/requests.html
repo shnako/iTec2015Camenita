@@ -20,8 +20,8 @@
             <tr>
                 <td>{{ request.timestamp }}</td>
                 <td>{{ request.request_method }}</td>
-                <td><a href="{{ view_page_request_absolute_urls|key_value:request.id }}">View Request</a></td>
-                <td><a href="{{ view_page_response_absolute_urls|key_value:request.id }}">View Response</a></td>
+                <td><a href="{% url 'view-request-body' request.id %}">View Request</a></td>
+                <td><a href="{% url 'view-response-body' request.id %}">View Response</a></td>
 {#                <td>{{ request.response_body }}</td>#}
             </tr>
         {% endfor %}

@@ -68,17 +68,3 @@ class UsePage(APIView):
         return self._handle_request(request, HTTP_METHODS.PUT, page_ref, code)
 
 
-def delete_page(request, page_ref):
-    page = get_object_or_404(Page, ref=page_ref)
-
-    try:
-        page.access_logs.all().delete()
-    except:
-        # No access logs, no worries.
-        pass
-
-    page.authentication.delete()
-    page.delete()
-
-    messages.success(request, 'The page has been deleted.')
-    return Response()

@@ -154,3 +154,21 @@ def view_response_details(request, request_id):
     if request.user != page_access_log.user:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
     return HttpResponse(page_access_log.response_body)
+
+@login_required
+def delete_page(request, page_ref):
+    page = get_object_or_404(Page, ref=page_ref)
+
+    try:
+        page.access_logs.all().delete()
+    except:
+        # No access logs, no worries.
+        pass
+
+    page.authentication.delete()
+    page.delete()
+
+    messages.success(request, 'The page has been deleted.')
+
+    # TODO: redirect
+    return Response()

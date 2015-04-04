@@ -27,7 +27,7 @@
                     <a href="{% url 'use-page' page.ref %}">Use</a><br/>
                     <a href="{% url 'view-page-response' page.ref %}">View Response</a><br/>
                     <a href="{% url 'view-page-code' page.ref %}">View Code</a><br/>
-                    <a href="TODO">Delete</a><br/>
+                    <a href="{% url 'delete-page' page.ref %}">Delete</a><br/>
                 </td>
             </tr>
         {% endfor %}
