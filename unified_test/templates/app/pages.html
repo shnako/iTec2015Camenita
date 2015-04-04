@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% block title %}Pages{% endblock %}
 {% block extra-content-classes %}center-content-hv{% endblock %}
+{% load key_value %}
 
 {% block content %}
 
@@ -28,7 +29,7 @@
                 <td>{{ page.delay }}</td>
                 <td>{{ page.response }}</td>
                 <td>{{ page.dynamic_code }}</td>
-                <td><a href="http://{{ request.get_host }}/use/{{ page.ref }}">http://{{ request.get_host }}/use/{{ page.ref }}</a></td>
+                <td>{{ absolute_urls|key_value:page.ref}}</td>
             </tr>
         {% endfor %}
         </tbody>

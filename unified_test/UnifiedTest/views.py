@@ -18,10 +18,23 @@ def index(request):
         return redirect(login_user)
 
 
+def build_absolute_urls(request, pages):
+    urls = {}
+    for page in pages:
+        relative_url = reverse('use-page', kwargs={'page_ref': page.ref})
+        absolute_url = request.build_absolute_uri(relative_url)
+        urls[page.ref] = absolute_url
+
+    return urls
+
 @login_required
 def pages(request):
     user_pages = Page.objects.filter(user=request.user)
-    context = {'pages': user_pages}
+    absolute_urls = build_absolute_urls(request, user_pages)
+    context = {
+        'pages': user_pages,
+        'absolute_urls': absolute_urls
+    }
     return render_to_response('app/pages.html', context, RequestContext(request))
 
 
