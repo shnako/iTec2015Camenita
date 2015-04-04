@@ -19,7 +19,7 @@ class Page(models.Model):
 
 
 class PageAccessLog(models.Model):
-    page = models.ForeignKey(Page)
+    page = models.ForeignKey(Page, related_name="access_logs")
     timestamp = models.DateTimeField()
     request_type = models.CharField(max_length=20, choices=HTTP_METHODS)
     request_body = models.TextField()

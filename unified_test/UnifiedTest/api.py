@@ -1,10 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
-from UnifiedTest.models import Page, PageAccessLog, HTTP_METHODS
+from UnifiedTest.models import Page, PageAccessLog, HTTP_METHODS, PageAuthentication
+
 
 class UsePage(APIView):
 
@@ -39,3 +39,18 @@ class UsePage(APIView):
         self._create_acces_log_entry(request, page_ref, HTTP_METHODS.DELETE)
 
         return Response()
+
+def delete_page(request, page_ref):
+    page = get_object_or_404(Page, ref=page_ref)
+
+    try:
+        page.access_logs.all().delete()
+    except:
+        # No access logs, no worries.
+        pass
+
+    page.authentication.delete()
+    page.delete()
+
+    # Confirm with a 200 OK.
+    return Response()
