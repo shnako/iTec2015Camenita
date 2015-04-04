@@ -12,9 +12,11 @@ class PageForm(forms.ModelForm):
                   'dynamic_code')
 
 class PageAuthenticationForm(forms.ModelForm):
-    username = forms.CharField()
-    password = forms.CharField()
-    token = forms.CharField()
+    username = forms.CharField(required=False)
+    password = forms.CharField(required=False)
+    token = forms.CharField(required=False)
+    header_name = forms.CharField(required=False)
+    header_value = forms.CharField(required=False)
     value = forms.CharField(
         widget=forms.TextInput(attrs={'readonly': 'readonly'})
     )

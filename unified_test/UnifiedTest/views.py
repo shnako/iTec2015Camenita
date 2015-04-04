@@ -68,6 +68,7 @@ def get_unique_page_id():
 
     return generated_uuid
 
+
 def use_page_absolute_url(request, page_ref):
     relative_url = reverse('use-page', kwargs={'page_ref': page_ref})
     return request.build_absolute_uri(relative_url)
@@ -82,14 +83,24 @@ def create_page(request):
         page_authentication_form = PageAuthenticationForm()
     elif request.method == 'POST':
         page_form = PageForm(request.POST)
-        if page_form.is_valid():
+        page_authentication_form = PageAuthenticationForm(request.POST)
+        if page_form.is_valid() and page_authentication_form.is_valid():
             page = page_form.save(commit=False)
             page.user = request.user
             page.save()
+
+            page_authentication = page_authentication_form.save(commit=False)
+            page_authentication.page = page
+            page_authentication.value = request.POST.get('value')
+            page_authentication.save()
+
             return HttpResponseRedirect(reverse('edit-page',
                                                 kwargs={'page_ref': page.ref}))
-    return render_to_response('app/create.html', context={'page_form': page_form, 'page_authentication_form': page_authentication_form},
-                              context_instance=RequestContext(request))
+    return render_to_response('app/page-details.html', context={
+        'mode': 'create',
+        'page_form': page_form,
+        'page_authentication_form': page_authentication_form
+    }, context_instance=RequestContext(request))
 
 
 @login_required
@@ -98,16 +109,25 @@ def edit_page(request, page_ref):
     if request.method == 'GET':
         page = get_object_or_404(Page, ref=page_ref)
         url = use_page_absolute_url(request, page.ref)
-        form = PageForm(initial={'url': url}, instance=page)
+        page_form = PageForm(initial={'url': url}, instance=page)
+        page_authentication_form = PageAuthenticationForm(initial={'type': page.authentication.type, 'value': page.authentication.value}, instance=page.authentication)
     elif request.method == 'POST':
         page = get_object_or_404(Page, ref=page_ref)
-        form = PageForm(request.POST, instance=page)
-        if form.is_valid():
-            form.save()
+        page_form = PageForm(request.POST, instance=page)
+        page_authentication_form = PageAuthenticationForm(request.POST, instance=page.authentication)
+        if page_form.is_valid() and page_authentication_form.is_valid():
+            page_form.save()
+
+            page_authentication = page_authentication_form.save(commit=False)
+            page_authentication.value = request.POST.get('value')
+            page_authentication.save()
         else:
-            print form.errors
-    return render_to_response('app/edit-page.html', {'form': form},
-                                RequestContext(request))
+            print page_form.errors
+    return render_to_response('app/page-details.html', context={
+        'mode': 'edit',
+        'page_form': page_form,
+        'page_authentication_form': page_authentication_form
+    }, context_instance=RequestContext(request))
 
 @login_required
 def view_page_response(request, page_ref):

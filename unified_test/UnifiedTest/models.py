@@ -30,6 +30,6 @@ class PageAccessLog(models.Model):
 
 class PageAuthentication(models.Model):
     AUTH_CHOICES = Choices('Basic', 'Headers', 'OAuth')
-    page = models.ForeignKey(Page, related_name='credentials')
+    page = models.OneToOneField(Page, related_name='authentication')
     type = models.CharField(choices=AUTH_CHOICES, default=AUTH_CHOICES.Basic, max_length=10)
     value = models.CharField(max_length=1024)
