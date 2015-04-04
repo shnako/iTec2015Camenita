@@ -23,7 +23,7 @@
         <tbody>
         {% for page in pages %}
             <tr>
-                <td><a href="{% url 'use-page' page.ref %}">{{ page.ref }}</a></td>
+                <td><a href="{% url 'edit-page' page.ref %}">{{ page.ref }}</a></td>
                 <td>{{ page.status_code }}</td>
                 <td>{{ page.delay }}</td>
                 <td>{{ page.authentication.type }}</td>
