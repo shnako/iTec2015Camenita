@@ -4,6 +4,11 @@
 {% load key_value %}
 
 {% block content %}
+    <form id="search-form" method="POST" action="{% url 'requests' %}">
+        {% csrf_token %}
+        <input type="text" name="SEARCH-QUERY" placeholder="Search query" autofocus>
+        <button type="submit">Search</button>
+    </form>
 
     <table id="table-content" class="container content-container">
         <thead>

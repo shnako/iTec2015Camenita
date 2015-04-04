@@ -54,7 +54,7 @@ def requests(request):
                 | Q(request_method__icontains=search_query)
                 | Q(request_body__icontains=search_query)
                 | Q(response_body__icontains=search_query),
-                user=request.user
+                page__user=request.user
             )
     else:
         user_requests = PageAccessLog.objects.filter(page__user=request.user)
