@@ -61,10 +61,10 @@ class UsePage(APIView):
 
     def post(self, request, page_ref, format=None):
         code = request.data.get('code', '')
-        return self._handle_request(request, HTTP_METHODS.PUT, page_ref, code)
+        return self._handle_request(request, HTTP_METHODS.POST, page_ref, code)
 
     def delete(self, request, page_ref, format=None):
         code = request.data.get('code', '')
-        return self._handle_request(request, HTTP_METHODS.PUT, page_ref, code)
+        return self._handle_request(request, HTTP_METHODS.DELETE, page_ref, code)
 
 
