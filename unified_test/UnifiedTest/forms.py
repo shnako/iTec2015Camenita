@@ -9,7 +9,7 @@ class PageForm(forms.ModelForm):
     class Meta:
         model = Page
         fields = ('ref', 'url', 'status_code', 'delay', 'response',
-                  'dynamic_code')
+                  'dynamic_code', 'default_response')
 
 class PageAuthenticationForm(forms.ModelForm):
     username = forms.CharField()

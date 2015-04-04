@@ -7,12 +7,15 @@ HTTP_METHODS = Choices('GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'HEAD')
 
 
 class Page(models.Model):
+    DEFAULT_RESPONSES = Choices('Static', 'Dynamic')
     user = models.ForeignKey(User, null=True, blank=True)
     ref = models.CharField(max_length=64, unique=True)
     status_code = models.PositiveIntegerField(default=200)
     delay = models.PositiveIntegerField(default=0, null=True, blank=True)
     response = models.TextField()
     dynamic_code = models.TextField(blank=True)
+    default_response = models.CharField(max_length=50, choices=DEFAULT_RESPONSES,
+                                        default=DEFAULT_RESPONSES.Static)
 
     def __unicode__(self):
         return '{ref}'.format(ref=self.ref)
@@ -21,9 +24,9 @@ class Page(models.Model):
 class PageAccessLog(models.Model):
     page = models.ForeignKey(Page)
     timestamp = models.DateTimeField()
-    request_type = models.CharField(max_length=20, choices=HTTP_METHODS)
+    request_method = models.CharField(max_length=20, choices=HTTP_METHODS)
     request_body = models.TextField()
-    response_body = models.TextField()
+    response_body = models.TextField(blank=True)
 
     def __unicode__(self):
         return '{page} - {ts}'.format(page=self.page, ts=self.timestamp)

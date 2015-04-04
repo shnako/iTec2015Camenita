@@ -112,3 +112,5 @@ TEMPLATE_DIRS = (
 
 MEDIA_ROOT = '/var/www/media/'
 MEDIA_URL = os.path.join(BASE_DIR, '/media/')
+
+DEFAULT_DYNAMIC_METHOD_NAME = 'fun'
