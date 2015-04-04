@@ -32,7 +32,9 @@ def pages(request):
                 | Q(delay__icontains=search_query)
                 | Q(response__icontains=search_query)
                 | Q(dynamic_code__icontains=search_query)
-                | Q(default_response__icontains=search_query))
+                | Q(default_response__icontains=search_query),
+                user=request.user
+            )
     else:
         user_pages = Page.objects.filter(user=request.user)
 
@@ -51,7 +53,9 @@ def requests(request):
                 | Q(timestamp__icontains=search_query)
                 | Q(request_method__icontains=search_query)
                 | Q(request_body__icontains=search_query)
-                | Q(response_body__icontains=search_query))
+                | Q(response_body__icontains=search_query),
+                user=request.user
+            )
     else:
         user_requests = PageAccessLog.objects.filter(page__user=request.user)
 
