@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -5,8 +6,9 @@ from django.utils import timezone
 
 from UnifiedTest.models import Page, PageAccessLog, HTTP_METHODS
 
-class UsePage(APIView):
-
+@login_required
+class use_page(APIView):
+    # TODO Verify user is owner
     def _create_acces_log_entry(self, ref_page, request_type):
         page = get_object_or_404(Page, ref=page_ref)
         PageAccessLog.objects.create(page=page, timestamp=timezone.now(),

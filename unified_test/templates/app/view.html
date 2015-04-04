@@ -1,19 +1,25 @@
 {% extends 'layouts/base.html' %}
-{% block title %}Login/SignUp{% endblock %}
-{% block description %}Login or sign up.{% endblock %}
+{% block title %}View Page{% endblock %}
 {% block extra-content-classes %}center-content-hv{% endblock %}
 
 {% block content %}
 
-    <!DOCTYPE html>
-    <html>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-    {{ form.as_p }}
-    </body>
-    </html>
+    <form id="form-content" class="container center-content-h content-container"
+          action="{% url 'create-page' %}" method="post">
+        {% if form.non_field_errors %}
+            <div>
+                <strong>"Please correct the errors below"</strong><br>
+                {% for error in form.non_field_errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <button class="submit-button" type="submit">
+            Save
+        </button>
+    </form>
 
 {% endblock %}

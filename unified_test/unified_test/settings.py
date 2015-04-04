@@ -34,8 +34,11 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Where to go when login is required.
+LOGIN_URL = '/login/'
+
 # Where to go after a successful login.
-LOGIN_REDIRECT_URL = '/pages/'
+LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 

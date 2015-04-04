@@ -1,16 +1,3 @@
-#login_signup_container {
-    /* Layout */
-    clear: both;
-    padding: 20px;
-    border-radius: 3px;
-    line-height: 1.4;
-
-    width: 600px;
-    margin-top: 50px;
-
-    background-color: #4d5965;
-}
-
 #login_signup_container a {
     color: white;
 }
@@ -46,15 +33,4 @@
     margin-top: 16px;
     float: right;
     font-size: 13px;
-}
-
-.submit-button-auth {
-    width:100%;
-    padding: 5px;
-    background-color: #4d5965;
-    color: white;
-    font-size: 20px;
-    border-width: 1px;
-    border-color: white;
-    border-style: solid;
 }

@@ -1,3 +1,8 @@
+/*
+=======================
+Site-wide.
+=======================
+*/
 html, body{
     height: 100%;
 }
@@ -19,6 +24,27 @@ button:hover {
     border-color: #f8862c;
 }
 
+.content-container {
+    clear: both;
+    padding: 20px;
+    border-radius: 3px;
+    line-height: 1.4;
+
+    width: 600px;
+    margin-top: 50px;
+
+    background-color: #4d5965;
+}
+
+.content-container label {
+    color: white;
+}
+
+/*
+=======================
+Navigation.
+=======================
+*/
 #nav {
     background-color: #4d5965;
     border-radius: 0;
@@ -51,9 +77,45 @@ button:hover {
     color: #f8862c;
 }
 
-/* =======================
-    Helpers.
-   =======================
+/*
+=======================
+Forms.
+=======================
+*/
+#form-content {
+    margin-top: 50px;
+
+}
+
+#form-content li {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+#form-content input, #form-content textarea {
+    width: 450px;
+    float: right;
+}
+
+#form-content textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    width:100% !important;
+    padding: 5px;
+    background-color: #4d5965;
+    color: white;
+    font-size: 20px;
+    border-width: 1px;
+    border-color: white;
+    border-style: solid;
+}
+
+/*
+=======================
+Helpers.
+=======================
 */
 
 .center-content-v {

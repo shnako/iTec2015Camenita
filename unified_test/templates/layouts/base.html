@@ -15,7 +15,7 @@
 <body>
     {% include 'partials/nav.html' %}
     {% block container %}
-        <div id="main-wrapper" class="{% block extra-main-classes %}{% endblock %}">
+        <div id="main-wrapper" class="container {% block extra-main-classes %}{% endblock %}">
             {% block content %}{% endblock %}
         </div>
     {% endblock %}
