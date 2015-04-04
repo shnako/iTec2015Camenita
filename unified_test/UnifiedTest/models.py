@@ -12,7 +12,7 @@ class Page(models.Model):
     ref = models.CharField(max_length=64, unique=True)
     status_code = models.PositiveIntegerField(default=200)
     delay = models.PositiveIntegerField(default=0, null=True, blank=True)
-    response = models.TextField()
+    response = models.TextField(blank=True)
     dynamic_code = models.TextField(blank=True)
     default_response = models.CharField(max_length=50, choices=DEFAULT_RESPONSES,
                                         default=DEFAULT_RESPONSES.Static)
