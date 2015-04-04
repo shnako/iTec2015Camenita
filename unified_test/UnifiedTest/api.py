@@ -8,8 +8,8 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.conf import settings
 
-from UnifiedTest.models import Page, PageAccessLog, HTTP_METHODS, PageAuthentication
-
+from UnifiedTest.models import (Page, PageAccessLog, HTTP_METHODS,
+                                PageAuthentication)
 
 
 class UsePage(APIView):
@@ -25,8 +25,19 @@ class UsePage(APIView):
 
         return context[method_name]
 
+    def _check_authorization(self, request, page):
+        available_schemes = PageAuthentication.AUTH_CHOICES
+
+        auth_scheme = page.authentication.type
+        if auth_scheme == available_schemes.Basic:
+            for i in dir(request):
+                print i, getattr(request, i)
+
+
     def _handle_request(self, request, request_method, page_ref, dynamic_code):
         page = self._get_page(page_ref)
+        self._check_authorization(request, page)
+
         log_item = PageAccessLog.objects.create(page=page, timestamp=timezone.now(),
                                                 request_method=request_method,
                                                 request_body=dynamic_code)
@@ -79,4 +90,3 @@ def delete_page(request, page_ref):
 
     messages.success(request, 'The page has been deleted.')
     return Response()
->>>>>>> 560c98fc0a85b76b4ee710d31dc775624416a10a
