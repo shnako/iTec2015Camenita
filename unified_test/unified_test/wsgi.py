@@ -15,4 +15,5 @@ sys.path.append('/projects/iTec2015Camenita/unified_test/unified_test')
 sys.path.append('/projects/iTec2015Camenita/unified_test')
 
 from django.core.wsgi import get_wsgi_application
+
 application = get_wsgi_application()
