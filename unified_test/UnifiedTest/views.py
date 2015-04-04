@@ -21,10 +21,10 @@ def index(request):
         return redirect(login_user)
 
 
-def build_absolute_urls(request, pages):
+def build_absolute_urls(request, pages, url_name):
     urls = {}
     for page in pages:
-        relative_url = reverse('use-page', kwargs={'page_ref': page.ref})
+        relative_url = reverse(url_name, kwargs={'page_ref': page.ref})
         absolute_url = request.build_absolute_uri(relative_url)
         urls[page.ref] = absolute_url
 
@@ -33,10 +33,19 @@ def build_absolute_urls(request, pages):
 @login_required
 def pages(request):
     user_pages = Page.objects.filter(user=request.user)
-    absolute_urls = build_absolute_urls(request, user_pages)
+    edit_page_absolute_urls = build_absolute_urls(request, user_pages,
+                                                  'edit-page')
+    use_absolute_urls = build_absolute_urls(request, user_pages, 'use-page')
+    view_page_response_absolute_urls = build_absolute_urls(request, user_pages,
+                                                           'view-page-response')
+    view_page_code_absolute_urls = build_absolute_urls(request, user_pages,
+                                                       'view-page-code')
     context = {
         'pages': user_pages,
-        'absolute_urls': absolute_urls
+        'edit_page_absolute_urls': edit_page_absolute_urls,
+        'use_absolute_urls': use_absolute_urls,
+        'view_page_response_absolute_urls': view_page_response_absolute_urls,
+        'view_page_code_absolute_urls': view_page_code_absolute_urls
     }
     return render_to_response('app/pages.html', context, RequestContext(request))
 
@@ -60,13 +69,16 @@ def get_unique_page_id():
 
     return generated_uuid
 
+def use_page_absolute_url(request, page_ref):
+    relative_url = reverse('use-page', kwargs={'page_ref': page_ref})
+    return request.build_absolute_uri(relative_url)
+
 
 @login_required
 def create_page(request):
     if request.method == 'GET':
         generated_uuid = get_unique_page_id()
-        relative_url = reverse('use-page', kwargs={'page_ref': generated_uuid})
-        url = request.build_absolute_uri(relative_url)
+        url = use_page_absolute_url(request, generated_uuid)
         form = PageForm(initial={'url': url, 'ref': generated_uuid})
     elif request.method == 'POST':
         form = PageForm(request.POST)
@@ -74,19 +86,39 @@ def create_page(request):
             page = form.save(commit=False)
             page.user = request.user
             page.save()
-            return HttpResponseRedirect(reverse('view-page',
+            return HttpResponseRedirect(reverse('edit-page',
                                                 kwargs={'page_ref': page.ref}))
     return render_to_response('app/create.html', context={'form': form},
                               context_instance=RequestContext(request))
 
 
 @login_required
-def view_page_details(request, page_ref):
+def edit_page(request, page_ref):
     # TODO Verify user is owner
+    if request.method == 'GET':
+        page = get_object_or_404(Page, ref=page_ref)
+        url = use_page_absolute_url(request, page.ref)
+        form = PageForm(initial={'url': url}, instance=page)
+    elif request.method == 'POST':
+        page = get_object_or_404(Page, ref=page_ref)
+        form = PageForm(request.POST, instance=page)
+        if form.is_valid():
+            form.save()
+        else:
+            print form.errors
+    return render_to_response('app/edit-page.html', {'form': form},
+                                RequestContext(request))
+
+@login_required
+def view_page_response(request, page_ref):
     page = get_object_or_404(Page, ref=page_ref)
-    form = PageForm(instance=page)
-    return render_to_response('app/view.html', {'form': form},
-                              RequestContext(request))
+    return HttpResponse(page.response)
+
+
+@login_required
+def view_page_code(request, page_ref):
+    page = get_object_or_404(Page, ref=page_ref)
+    return HttpResponse(page.dynamic_code)
 
 @login_required
 def view_request_details(request, request_id):

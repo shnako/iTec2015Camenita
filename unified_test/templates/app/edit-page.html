@@ -5,7 +5,7 @@
 {% block content %}
 
     <form id="form-content" class="container center-content-h content-container"
-          action="{% url 'create-page' %}" method="post">
+          action="{% url 'edit-page' form.ref.value %}" method="post">
         {% if form.non_field_errors %}
             <div>
                 <strong>"Please correct the errors below"</strong><br>
