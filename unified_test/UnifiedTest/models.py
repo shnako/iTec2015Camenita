@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from model_utils import Choices
 
-HTTP_METHODS = Choices('GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'HEAD')
+HTTP_METHODS = Choices('GET', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS',
+                       'HEAD')
 
 
 class Page(models.Model):

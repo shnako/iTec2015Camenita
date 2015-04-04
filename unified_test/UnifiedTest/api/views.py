@@ -20,7 +20,7 @@ class UsePage(APIView):
         return get_object_or_404(Page, ref=page_ref)
 
     def _attach_dynamic_method(self, code):
-        method_name = getattr(settings, 'DEFAULT_DYNAMIC_METHOD_NAME', 'fun')
+        method_name = code.split('(')[0].split(' ')[1]
         context = {}
         exec code.strip() in context
         setattr(self.__class__, method_name, context[method_name])
@@ -55,17 +55,18 @@ class UsePage(APIView):
         code = request.query_params.get('code', '')
         return self._handle_request(request, HTTP_METHODS.GET, page_ref, code)
 
-    def put(self, request, page_ref, format=None):
-        code = request.data.get('code', '')
-        return self._handle_request(request, HTTP_METHODS.PUT, page_ref, code)
-
     def post(self, request, page_ref, format=None):
         code = request.data.get('code', '')
         return self._handle_request(request, HTTP_METHODS.POST, page_ref, code)
 
+    def put(self, request, page_ref, format=None):
+        code = request.data.get('code', '')
+        return self._handle_request(request, HTTP_METHODS.PUT, page_ref, code)
+
+    def patch(self, request, page_ref, format=None):
+        code = request.data.get('code', '')
+        return self._handle_request(request, HTTP_METHODS.PATCH, page_ref, code)
+
     def delete(self, request, page_ref, format=None):
         code = request.data.get('code', '')
         return self._handle_request(request, HTTP_METHODS.DELETE, page_ref, code)
-
-def search_pages(self, request):
-    pass
