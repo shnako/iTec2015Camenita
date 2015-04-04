@@ -11,6 +11,7 @@ class PageForm(forms.ModelForm):
         fields = ('ref', 'url', 'status_code', 'delay', 'response',
                   'dynamic_code')
 
+
 class PageAuthenticationForm(forms.ModelForm):
     username = forms.CharField(required=False)
     password = forms.CharField(required=False)

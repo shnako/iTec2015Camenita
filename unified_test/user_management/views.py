@@ -12,8 +12,6 @@ from unified_test.decorators import unified_test_api_request
 from unified_test.exceptions import UnifiedTestRequestException
 from unified_test.parameters import MIN_PASSWORD_LENGTH
 
-__author__ = 'VladIulian'
-
 
 @unified_test_api_request
 def login_user(request):
@@ -27,6 +25,7 @@ def login_user(request):
     elif request.method == "POST":
         _login_user(request)
         return HttpResponse(status=status.HTTP_200_OK)
+
 
 @unified_test_api_request
 @login_required

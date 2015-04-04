@@ -1,6 +1,5 @@
 import uuid
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
@@ -10,7 +9,6 @@ from rest_framework import status
 
 from UnifiedTest.models import Page, PageAccessLog
 from UnifiedTest.forms import PageForm, PageAuthenticationForm
-from unified_test.exceptions import UnifiedTestRequestException
 from user_management.views import login_user
 
 
@@ -105,14 +103,17 @@ def create_page(request):
 
 @login_required
 def edit_page(request, page_ref):
-    # TODO Verify user is owner
+    page = get_object_or_404(Page, ref=page_ref)
+
+    # Ensure user is page owner.
+    if request.user != page.user:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+
     if request.method == 'GET':
-        page = get_object_or_404(Page, ref=page_ref)
         url = use_page_absolute_url(request, page.ref)
         page_form = PageForm(initial={'url': url}, instance=page)
         page_authentication_form = PageAuthenticationForm(initial={'type': page.authentication.type, 'value': page.authentication.value}, instance=page.authentication)
     elif request.method == 'POST':
-        page = get_object_or_404(Page, ref=page_ref)
         page_form = PageForm(request.POST, instance=page)
         page_authentication_form = PageAuthenticationForm(request.POST, instance=page.authentication)
         if page_form.is_valid() and page_authentication_form.is_valid():
@@ -129,37 +130,38 @@ def edit_page(request, page_ref):
         'page_authentication_form': page_authentication_form
     }, context_instance=RequestContext(request))
 
+
 @login_required
 def view_page_response(request, page_ref):
     page = get_object_or_404(Page, ref=page_ref)
+    # Ensure user is page owner.
+    if request.user != page.user:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
     return HttpResponse(page.response)
 
 
 @login_required
 def view_page_code(request, page_ref):
     page = get_object_or_404(Page, ref=page_ref)
+    # Ensure user is page owner.
+    if request.user != page.user:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
     return HttpResponse(page.dynamic_code)
+
 
 @login_required
 def view_request_details(request, request_id):
-    try:
-        request_object = PageAccessLog.objects.get(id=request_id)
-        if request.user != request_object.page.user:
-            raise PermissionDenied
-    except:
-        # Not going into details to avoid leaking information.
-        raise UnifiedTestRequestException("Invalid request id!")
+    page_access_log = get_object_or_404(PageAccessLog, id=request_id)
+    # Ensure user is page owner.
+    if request.user != page_access_log.user:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+    return HttpResponse(page_access_log.request_body)
 
-    return HttpResponse(request_object.request_body, status=status.HTTP_200_OK)
 
 @login_required
 def view_response_details(request, request_id):
-    try:
-        response_object = PageAccessLog.objects.get(id=request_id)
-        if request.user != response_object.page.user:
-            raise PermissionDenied
-    except:
-        # Not going into details to avoid leaking information.
-        raise UnifiedTestRequestException("Invalid request id!")
-
-    return HttpResponse(response_object.response_body, status=status.HTTP_200_OK)
+    page_access_log = get_object_or_404(PageAccessLog, id=request_id)
+    # Ensure user is page owner.
+    if request.user != page_access_log.user:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+    return HttpResponse(page_access_log.response_body)
