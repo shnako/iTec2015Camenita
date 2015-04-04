@@ -16,5 +16,4 @@ urlpatterns = patterns('',
                        url(r'^use/(?P<page_ref>.*)/$', api_views.UsePage.as_view(), name='use-page'),
                        url(r'^view/request-body/(?P<request_id>.*)/$', views.view_request_details, name='view-request-body'),
                        url(r'^view/response-body/(?P<request_id>.*)/$', views.view_response_details, name='view-response-body'),
-                       url(r'^search-pages/$', api_views.search_pages, name='search-pages'),
 )
