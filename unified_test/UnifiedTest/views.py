@@ -39,7 +39,7 @@ def pages(request):
         user_pages = Page.objects.filter(user=request.user)
 
     return render_to_response('app/pages.html', {
-        'pages': user_pages,
+        'pages': user_pages.order_by('-id'),
     }, RequestContext(request))
 
 
@@ -60,7 +60,7 @@ def requests(request):
         user_requests = PageAccessLog.objects.filter(page__user=request.user)
 
     return render_to_response('app/requests.html', {
-        'requests': user_requests
+        'requests': user_requests.order_by('-timestamp')
     }, RequestContext(request))
 
 
