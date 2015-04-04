@@ -42,8 +42,10 @@ class UnifiedPostAuth(authentication.BaseAuthentication):
         available_schemes = PageAuthentication.AUTH_CHOICES
 
         if page.authentication.type == available_schemes.Basic:
-            print 'Basic'
             self.try_basic_http_auth(request, page)
-        elif page.authentication.type  == available_schemes.Headers:
-            print 'Headers'
+        elif page.authentication.type == available_schemes.Headers:
             self.try_custom_headers(request, page)
+        elif page.authentication.type == available_schemes.OAuth:
+            # TODO:
+            return
+
