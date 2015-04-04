@@ -8,21 +8,21 @@
     <table id="table-content" class="container content-container">
         <thead>
         <tr>
+            <th style="width: 20%">Page</th>
             <th style="width: 20%">Timestamp</th>
             <th style="width: 20%">Method</th>
             <th style="width: 20%">Request Body</th>
             <th style="width: 20%">Response Body</th>
-            <th style="width: 20%">Credentials</th>
         </tr>
         </thead>
         <tbody>
         {% for request in requests %}
             <tr>
+                <td><a href="{% url 'use-page' request.page.ref %}">{{ request.page }}</a></td>
                 <td>{{ request.timestamp }}</td>
                 <td>{{ request.request_method }}</td>
                 <td><a href="{% url 'view-request-body' request.id %}">View Request</a></td>
                 <td><a href="{% url 'view-response-body' request.id %}">View Response</a></td>
-{#                <td>{{ request.response_body }}</td>#}
             </tr>
         {% endfor %}
         </tbody>

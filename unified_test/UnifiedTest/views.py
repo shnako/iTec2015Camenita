@@ -126,7 +126,8 @@ def view_page_response(request, page_ref):
     # Ensure user is page owner.
     if request.user != page.user:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
-    return HttpResponse(page.response)
+
+    return render_to_response('app/text-wrapper.html', context={'text_content': page.response})
 
 
 @login_required
@@ -135,25 +136,28 @@ def view_page_code(request, page_ref):
     # Ensure user is page owner.
     if request.user != page.user:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
-    return HttpResponse(page.dynamic_code)
+
+    return render_to_response('app/text-wrapper.html', context={'text_content': page.dynamic_code})
 
 
 @login_required
 def view_request_details(request, request_id):
     page_access_log = get_object_or_404(PageAccessLog, id=request_id)
     # Ensure user is page owner.
-    if request.user != page_access_log.user:
+    if request.user != page_access_log.page.user:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
-    return HttpResponse(page_access_log.request_body)
+
+    return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.request_body})
 
 
 @login_required
 def view_response_details(request, request_id):
     page_access_log = get_object_or_404(PageAccessLog, id=request_id)
     # Ensure user is page owner.
-    if request.user != page_access_log.user:
+    if request.user != page_access_log.page.user:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
-    return HttpResponse(page_access_log.response_body)
+
+    return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.response_body})
 
 @login_required
 def delete_page(request, page_ref):

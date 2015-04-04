@@ -1,5 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
@@ -25,13 +24,6 @@ def login_user(request):
     elif request.method == "POST":
         _login_user(request)
         return HttpResponse(status=status.HTTP_200_OK)
-
-
-@unified_test_api_request
-@login_required
-def logout_user(request):
-    logout(request)
-    return HttpResponse(status=status.HTTP_200_OK)
 
 
 # Logs a user in if valid credentials. Will propagate exceptions.

@@ -13,13 +13,13 @@
     {% block extra_libraries %}{% endblock %}
 </head>
 <body>
-    {% include 'partials/nav.html' %}
-    {% block container %}
-        <div id="main-wrapper" class="container {% block extra-main-classes %}{% endblock %}">
-            {% block content %}{% endblock %}
-        </div>
-    {% endblock %}
+{% include 'partials/nav.html' %}
+{% block container %}
+    <div id="main-wrapper" class="container {% block extra-main-classes %}{% endblock %}">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
 
-    {% include 'partials/messages.html' %}
+{% include 'partials/messages.html' %}
 </body>
 </html>

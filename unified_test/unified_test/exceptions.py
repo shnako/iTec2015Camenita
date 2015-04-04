@@ -1,6 +1,3 @@
-__author__ = 'Vlad Schnakovszki'
-
-
 # Exception used to signal that an error has occurred in the processing
 # of a request and that the specified message should be handled.
 # Can also specify the response_code and **will default to 400 Bad Request if response_code not specified**.

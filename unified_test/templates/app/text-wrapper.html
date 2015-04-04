@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Pages{% endblock %}
+{% block extra-content-classes %}center-content-hv{% endblock %}
+{% load key_value %}
+{% block extra_libraries %}
+    <link rel="stylesheet" type="text/css" href="/static/css/text-wrapper.css">
+{% endblock %}
+
+{% block content %}
+
+    <div id="text-wrapper" class="container content-container">
+        <textarea id="text-content" readonly>{{ text_content }}</textarea>
+    </div>
+
+{% endblock %}
