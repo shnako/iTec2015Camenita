@@ -6,7 +6,7 @@
 {% block content %}
     <form id="search-form" method="POST" action="{% url 'pages' %}">
         {% csrf_token %}
-        <input type="text" name="SEARCH-QUERY" placeholder="Search query" autofocus>
+        <input type="text" name="SEARCH-QUERY" placeholder="Search pages" autofocus>
         <button type="submit">Search</button>
     </form>
 
