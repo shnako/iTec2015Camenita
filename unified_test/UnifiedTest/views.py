@@ -114,10 +114,16 @@ def edit_page(request, page_ref):
     if request.method == 'GET':
         url = use_page_absolute_url(request, page.ref)
         page_form = PageForm(initial={'url': url}, instance=page)
-        page_authentication_form = PageAuthenticationForm(initial={'type': page.authentication.type, 'value': page.authentication.value}, instance=page.authentication)
+        auth_form_initial = {
+            'type': page.authentication.type,
+            'value': page.authentication.value
+        }
+        page_authentication_form = PageAuthenticationForm(initial=auth_form_initial,
+                                                          instance=page.authentication)
     elif request.method == 'POST':
         page_form = PageForm(request.POST, instance=page)
-        page_authentication_form = PageAuthenticationForm(request.POST, instance=page.authentication)
+        page_authentication_form = PageAuthenticationForm(request.POST,
+                                                          instance=page.authentication)
         if page_form.is_valid() and page_authentication_form.is_valid():
             page_form.save()
 
