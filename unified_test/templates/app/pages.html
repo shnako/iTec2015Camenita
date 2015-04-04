@@ -22,9 +22,9 @@
                 <td>{{ page.delay }}</td>
                 <td>
                     <a href="TODO">Edit</a><br/>
-                    <a href="{{ absolute_urls|key_value:page.ref }}">Use</a><br/>
-                    <a href="TODO">View Response</a><br/>
-                    <a href="TODO">View Code</a>
+                    <a href="{{ use_absolute_urls|key_value:page.ref }}">Use</a><br/>
+                    <a href="{{ view_page_response_absolute_urls|key_value:page.ref }}">View Response</a><br/>
+                    <a href="{{ view_page_code_absolute_urls|key_value:page.ref }}">View Code</a><br/>
                 </td>
             </tr>
         {% endfor %}

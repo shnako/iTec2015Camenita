@@ -15,7 +15,7 @@ class Page(models.Model):
     dynamic_code = models.TextField(blank=True)
 
     def __unicode__(self):
-        return '{url}'.format(url=self.url)
+        return '{ref}'.format(ref=self.ref)
 
 
 class PageAccessLog(models.Model):

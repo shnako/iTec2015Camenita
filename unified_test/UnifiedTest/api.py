@@ -6,10 +6,9 @@ from django.utils import timezone
 
 from UnifiedTest.models import Page, PageAccessLog, HTTP_METHODS
 
-@login_required
-class use_page(APIView):
+class UsePage(APIView):
     # TODO Verify user is owner
-    def _create_acces_log_entry(self, ref_page, request_type):
+    def _create_acces_log_entry(self, request, page_ref, request_type):
         page = get_object_or_404(Page, ref=page_ref)
         PageAccessLog.objects.create(page=page, timestamp=timezone.now(),
                                      request_type=request_type,
@@ -18,21 +17,21 @@ class use_page(APIView):
         # TODO: compile the response body
 
     def get(self, request, page_ref, format=None):
-        self._create_acces_log_entry(ref_page, HTTP_METHODS.GET)
+        self._create_acces_log_entry(request, page_ref, HTTP_METHODS.GET)
 
         return Response()
 
     def put(self, request, page_ref, format=None):
-        self._create_acces_log_entry(ref_page, HTTP_METHODS.PUT)
+        self._create_acces_log_entry(request ,page_ref, HTTP_METHODS.PUT)
 
         return Response()
 
     def post(self, request, page_ref, format=None):
-        self._create_acces_log_entry(ref_page, HTTP_METHODS.POST)
+        self._create_acces_log_entry(request, page_ref, HTTP_METHODS.POST)
 
         return Response()
 
     def delete(self, request, page_ref, format=None):
-        self._create_acces_log_entry(ref_page, HTTP_METHODS.DELETE)
+        self._create_acces_log_entry(request, page_ref, HTTP_METHODS.DELETE)
 
         return Response()
