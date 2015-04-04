@@ -26,7 +26,7 @@ class UsePage(APIView):
     def _handle_request(self, request, request_method, page_ref, dynamic_code):
         page = self._get_page(page_ref)
         log_item = PageAccessLog.objects.create(page=page, timestamp=timezone.now(),
-                                                request_method=HTTP_METHODS.GET,
+                                                request_method=request_method,
                                                 request_body=dynamic_code)
 
         if page.default_response == Page.DEFAULT_RESPONSES.Static:

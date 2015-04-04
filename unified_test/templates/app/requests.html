@@ -18,7 +18,7 @@
         {% for request in requests %}
             <tr>
                 <td>{{ request.timestamp }}</td>
-                <td>{{ request.request_type }}</td>
+                <td>{{ request.request_method }}</td>
                 <td>{{ request.request_body }}</td>
                 <td>{{ request.response_body }}</td>
             </tr>
