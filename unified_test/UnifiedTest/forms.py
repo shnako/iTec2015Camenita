@@ -4,7 +4,12 @@ from UnifiedTest.models import Page, PageAuthentication
 
 
 class PageForm(forms.ModelForm):
-    url = forms.URLField()
+    ref = forms.CharField(
+        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+    )
+    url = forms.URLField(
+        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+    )
 
     class Meta:
         model = Page
