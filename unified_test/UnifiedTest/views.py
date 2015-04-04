@@ -117,7 +117,7 @@ def edit_page(request, page_ref):
 
     # Ensure user is page owner.
     if request.user != page.user:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
     if request.method == 'GET':
         url = use_page_absolute_url(request, page.ref)
@@ -152,7 +152,7 @@ def view_page_response(request, page_ref):
     page = get_object_or_404(Page, ref=page_ref)
     # Ensure user is page owner.
     if request.user != page.user:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
     return render_to_response('app/text-wrapper.html', context={'text_content': page.response})
 
@@ -162,7 +162,7 @@ def view_page_code(request, page_ref):
     page = get_object_or_404(Page, ref=page_ref)
     # Ensure user is page owner.
     if request.user != page.user:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
     return render_to_response('app/text-wrapper.html', context={'text_content': page.dynamic_code})
 
@@ -172,7 +172,7 @@ def view_request_details(request, request_id):
     page_access_log = get_object_or_404(PageAccessLog, id=request_id)
     # Ensure user is page owner.
     if request.user != page_access_log.page.user:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
     return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.request_body})
 
@@ -182,7 +182,7 @@ def view_response_details(request, request_id):
     page_access_log = get_object_or_404(PageAccessLog, id=request_id)
     # Ensure user is page owner.
     if request.user != page_access_log.page.user:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
     return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.response_body})
 
