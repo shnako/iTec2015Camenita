@@ -5,31 +5,27 @@
 
 {% block content %}
 
-    <table id="table-content" class="container center-content-h content-container">
-        <colgroup>
-            <col style="width: 20%"/>
-            <col style="width: 20%"/>
-            <col style="width: 20%"/>
-            <col style="width: 20%"/>
-            <col style="width: 20%"/>
-        </colgroup>
+    <table id="table-content" class="container content-container">
         <thead>
         <tr>
-            <th>Status Code</th>
-            <th>Delay (ms)</th>
-            <th>Response</th>
-            <th>Dynamic Code</th>
-            <th>URL</th>
+            <th style="width: 25%">Ref</th>
+            <th style="width: 25%">Status Code</th>
+            <th style="width: 25%">Delay (ms)</th>
+            <th style="width: 25%">Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for page in pages %}
             <tr>
+                <td>{{ page.ref }}</td>
                 <td>{{ page.status_code }}</td>
                 <td>{{ page.delay }}</td>
-                <td>{{ page.response }}</td>
-                <td>{{ page.dynamic_code }}</td>
-                <td>{{ absolute_urls|key_value:page.ref}}</td>
+                <td>
+                    <a href="TODO">Edit</a><br/>
+                    <a href="{{ absolute_urls|key_value:page.ref }}">Use</a><br/>
+                    <a href="TODO">View Response</a><br/>
+                    <a href="TODO">View Code</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
