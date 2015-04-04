@@ -191,6 +191,10 @@ def view_response_details(request, request_id):
 def delete_page(request, page_ref):
     page = get_object_or_404(Page, ref=page_ref)
 
+    # Ensure user is page owner.
+    if request.user != page.user:
+        return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
+
     try:
         page.access_logs.all().delete()
     except:
