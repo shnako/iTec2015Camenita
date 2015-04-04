@@ -1,6 +1,7 @@
 import uuid
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
@@ -22,7 +23,19 @@ def index(request):
 
 @login_required
 def pages(request):
-    user_pages = Page.objects.filter(user=request.user)
+    if request.method == "POST":
+        search_query = request.POST.get("SEARCH-QUERY")
+        if search_query is not None:
+            user_pages = Page.objects.filter(
+                Q(ref__icontains=search_query)
+                | Q(status_code__icontains=search_query)
+                | Q(delay__icontains=search_query)
+                | Q(response__icontains=search_query)
+                | Q(dynamic_code__icontains=search_query)
+                | Q(default_response__icontains=search_query))
+    else:
+        user_pages = Page.objects.filter(user=request.user)
+
     context = {
         'pages': user_pages,
     }
@@ -159,6 +172,7 @@ def view_response_details(request, request_id):
 
     return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.response_body})
 
+
 @login_required
 def delete_page(request, page_ref):
     page = get_object_or_404(Page, ref=page_ref)
@@ -174,5 +188,4 @@ def delete_page(request, page_ref):
 
     messages.success(request, 'The page has been deleted.')
 
-    # TODO: redirect
-    return Response()
+    return HttpResponseRedirect(reverse('pages'))

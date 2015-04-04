@@ -4,8 +4,10 @@
 {% load key_value %}
 
 {% block content %}
-<form>
-    <input type="text" id="searchPages">
+    <form id="search-form" method="POST" action="{% url 'pages' %}">
+        {% csrf_token %}
+        <input type="text" name="SEARCH-QUERY">
+        <button type="submit"></button>
     </form>
 
     <table id="table-content" class="container content-container">
@@ -21,7 +23,7 @@
         <tbody>
         {% for page in pages %}
             <tr>
-                <td>{{ page.ref }}</td>
+                <td><a href="{% url 'use-page' page.ref %}">{{ page.ref }}</a></td>
                 <td>{{ page.status_code }}</td>
                 <td>{{ page.delay }}</td>
                 <td>{{ page.authentication.type }}</td>
@@ -38,12 +40,3 @@
     </table>
 
 {% endblock %}
-<script>
-$(document).ready(function(){
-alert('asd);
-<!--console.log('bsd');-->
-        <!--$("#searchPages").on('input', function() {-->
-                <!--console.log('asdas');-->
-        <!--});-->
-)};
-</script>
