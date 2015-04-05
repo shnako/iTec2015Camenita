@@ -27,7 +27,9 @@ def unified_test_api_request(function):
             # Unexpected exceptions.
             # log.error(traceback.format_exc())
             print traceback.format_exc()
-            return HttpResponse("Something went wrong :( The problem details have been logged and will be investigated to prevent this problem in the future. "
+            return HttpResponse("Something went wrong :( "
+                                "The problem details have been logged and will be "
+                                "investigated to prevent this problem in the future. "
                                 "We apologise for the inconvenience", status=500)
 
     return handle_exceptions

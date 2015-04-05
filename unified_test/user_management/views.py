@@ -20,7 +20,8 @@ def login_user(request):
             'MIN_PASSWORD_LENGTH': MIN_PASSWORD_LENGTH
         }
         # Render the response and send it back!
-        return render_to_response('registration/login.html', context_dict, context)
+        return render_to_response('registration/login.html', context_dict,
+                                  context)
     elif request.method == "POST":
         _login_user(request)
         return HttpResponse(status=status.HTTP_200_OK)
@@ -44,7 +45,8 @@ def _login_user(request):
     if password is None:
         raise UnifiedTestRequestException('Missing password!')
     if len(password) < MIN_PASSWORD_LENGTH:
-        raise UnifiedTestRequestException("Password must contain at least " + str(MIN_PASSWORD_LENGTH) + " characters!")
+        raise UnifiedTestRequestException("Password must contain at least " +
+                                          str(MIN_PASSWORD_LENGTH) + " characters!")
 
     # Login the user for this session. Will generate.
     user = authenticate(username=email, password=password)
