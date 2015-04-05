@@ -1,9 +1,14 @@
+#main-wrapper {
+    height: 80%;
+}
+
 #text-wrapper {
     width: 100%;
+    height: 100%;
 }
 
 #text-wrapper textarea {
-    width: 100%;
-    height: 80%;
+    width: inherit;
+    height: inherit;
     resize: vertical;
 }
