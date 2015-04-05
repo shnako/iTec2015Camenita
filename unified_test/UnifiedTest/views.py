@@ -154,7 +154,7 @@ def view_page_response(request, page_ref):
     if request.user != page.user:
         return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
-    return render_to_response('app/text-wrapper.html', context={'text_content': page.response})
+    return render_to_response('app/text-wrapper.html', context={'text_content': page.response}, context_instance=RequestContext(request))
 
 
 @login_required
@@ -164,7 +164,7 @@ def view_page_code(request, page_ref):
     if request.user != page.user:
         return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
-    return render_to_response('app/text-wrapper.html', context={'text_content': page.dynamic_code})
+    return render_to_response('app/text-wrapper.html', context={'text_content': page.dynamic_code}, context_instance=RequestContext(request))
 
 
 @login_required
@@ -174,7 +174,7 @@ def view_request_details(request, request_id):
     if request.user != page_access_log.page.user:
         return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
-    return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.request_body})
+    return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.request_body}, context_instance=RequestContext(request))
 
 
 @login_required
@@ -184,7 +184,7 @@ def view_response_details(request, request_id):
     if request.user != page_access_log.page.user:
         return HttpResponse(status.HTTP_401_UNAUTHORIZED, status=status.HTTP_401_UNAUTHORIZED)
 
-    return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.response_body})
+    return render_to_response('app/text-wrapper.html', context={'text_content': page_access_log.response_body}, context_instance=RequestContext(request))
 
 
 @login_required
