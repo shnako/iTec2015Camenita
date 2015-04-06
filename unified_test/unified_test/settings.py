@@ -76,11 +76,10 @@ WSGI_APPLICATION = 'unified_test.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'UnifiedTest',
+        'NAME': 'camenita$UnifiedTest',
         'USER': 'camenita',
         'PASSWORD': 'x9(u0[AopH',
         'HOST': 'mysql.server',
-        'PORT': '3306',
     }
 }
 
