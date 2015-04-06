@@ -30,9 +30,9 @@ SECRET_KEY = 'h8am8o$a)&t_eoscxrxu+y9j11jxcp+3-m%*t8zgnd3x@##r+('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pythonanywhere.com']
 
 # Where to go when login is required.
 LOGIN_URL = '/login/'
