@@ -32,7 +32,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['pythonanywhere.com']
+ALLOWED_HOSTS = ['camenita.pythonanywhere.com']
 
 # Where to go when login is required.
 LOGIN_URL = '/login/'
