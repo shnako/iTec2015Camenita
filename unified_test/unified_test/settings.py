@@ -28,7 +28,7 @@ TEMPLATE_LOADERS = (
 SECRET_KEY = 'h8am8o$a)&t_eoscxrxu+y9j11jxcp+3-m%*t8zgnd3x@##r+('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -77,9 +77,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'UnifiedTest',
-        'USER': 'django',
-        'PASSWORD': 'CUCF5JufhwApxpPq',
-        'HOST': 'shnako.com',
+        'USER': 'camenita',
+        'PASSWORD': 'x9(u0[AopH',
+        'HOST': 'mysql.server',
         'PORT': '3306',
     }
 }
