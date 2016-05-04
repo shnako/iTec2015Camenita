@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, secrets
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'unified_test.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'camenita$UnifiedTest',
-        'USER': 'camenita',
-        'PASSWORD': 'x9(u0[AopH',
+        'NAME': secrets.db_name,
+        'USER': secrets.db_user,
+        'PASSWORD': secrets.db_password,
         'HOST': 'camenita.mysql.pythonanywhere-services.com',
     }
 }
