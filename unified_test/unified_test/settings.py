@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'camenita$UnifiedTest',
         'USER': 'camenita',
         'PASSWORD': 'x9(u0[AopH',
-        'HOST': 'mysql.server',
+        'HOST': 'camenita.mysql.pythonanywhere-services.com',
     }
 }
 
